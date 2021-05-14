@@ -12,6 +12,7 @@
     "@sveltejs/adapter-node": "next",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
+    "d3-hierarchy": "^2.0.0",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.0",

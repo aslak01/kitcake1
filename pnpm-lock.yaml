@@ -8,6 +8,7 @@ specifiers:
   '@sveltejs/kit': next
   '@sveltejs/pancake': github:cryptodeal/pancake
   cookie: ^0.4.1
+  d3-hierarchy: ^2.0.0
   eslint: ^7.26.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^3.2.0
@@ -18,13 +19,14 @@ specifiers:
 dependencies:
   '@fontsource/fira-mono': 4.3.0
   '@lukeed/uuid': 2.0.0
-  '@sveltejs/pancake': github.com/cryptodeal/pancake/de897d210ecb24c7e5c6cc5a3642e7cf0629f67e
+  '@sveltejs/pancake': github.com/cryptodeal/pancake/09216fe2373b9d2490582ee9bdc7db73faf3410d
   cookie: 0.4.1
 
 devDependencies:
   '@sveltejs/adapter-node': 1.0.0-next.20
   '@sveltejs/adapter-vercel': 1.0.0-next.17_svelte@3.38.2
   '@sveltejs/kit': 1.0.0-next.107_svelte@3.38.2
+  d3-hierarchy: 2.0.0
   eslint: 7.26.0
   eslint-config-prettier: 8.3.0_eslint@7.26.0
   eslint-plugin-svelte3: 3.2.0_eslint@7.26.0+svelte@3.38.2
@@ -312,6 +314,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /d3-hierarchy/2.0.0:
+    resolution: {integrity: sha512-SwIdqM3HxQX2214EG9GTjgmCc/mbSx4mQBn+DuEETubhOw6/U3fmnji4uCVrmzOydMHSO1nZle5gh6HB/wdOzw==}
     dev: true
 
   /debug/4.3.1:
@@ -1050,14 +1056,14 @@ packages:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: true
 
-  /yootils/0.0.16:
-    resolution: {integrity: sha512-aIVecm5ucOzwhtKbl0zkfg0ZSOUR9c2da0k8cIc9umjjzkvVCWUUX/UHZ1CLPsv4wmJLqt0aWeLB7p9n9JDwYQ==}
+  /yootils/0.2.0:
+    resolution: {integrity: sha512-f4W+Dg0WbB4sXVmsTkIADwA74UDLLG37ymMxKHmcqDe/4gB84ONpD+sfFgJLKN8oN6pCMYzVulqHNaYHETi4NQ==}
     dev: false
 
-  github.com/cryptodeal/pancake/de897d210ecb24c7e5c6cc5a3642e7cf0629f67e:
-    resolution: {tarball: https://codeload.github.com/cryptodeal/pancake/tar.gz/de897d210ecb24c7e5c6cc5a3642e7cf0629f67e}
+  github.com/cryptodeal/pancake/09216fe2373b9d2490582ee9bdc7db73faf3410d:
+    resolution: {tarball: https://codeload.github.com/cryptodeal/pancake/tar.gz/09216fe2373b9d2490582ee9bdc7db73faf3410d}
     name: '@sveltejs/pancake'
     version: 0.0.17
     dependencies:
-      yootils: 0.0.16
+      yootils: 0.2.0
     dev: false
