@@ -2,7 +2,7 @@
 	// const modules = import.meta.glob('./*/index.svelte')
 </script>
 <script>
-	import LifeExpt from './lifeexp/index.svelte';
+	import LifeExpt from './lfexp/index.svelte';
 	import Co2 from './co2chart/index.svelte'
 	import Pop from './population/index.svelte'
 
