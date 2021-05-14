@@ -1,14 +1,5 @@
 <script context="module">
 	const modules = import.meta.glob('./*/index.svelte')
-
-	const faq = Object.values(imports)	
-
-const sortFAQS = (a, b) => a.metadata.order - b.metadata.order;
-
-export const faqs = faq.sort(sortFAQS).map(({ metadata, html }) => ({
-	question: metadata.question,
-	answer: html,
-}));
 </script>
 <script>
 	import LifeExpt from './lifeexp/index.svelte';
