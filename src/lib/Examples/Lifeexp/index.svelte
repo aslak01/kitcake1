@@ -1,6 +1,6 @@
 <script>
 	import * as Pancake from '@sveltejs/pancake';
-	import { countries, years } from '../data/data.js';
+	import { countries, years } from './data.js';
 
 	let x1 = +Infinity;
 	let x2 = -Infinity
@@ -42,8 +42,10 @@
 
 		<Pancake.Svg>
 			{#each filtered as country}
-				<Pancake.SvgLine data={country.data} let:d>
-					<path class="data" {d}></path>
+				<Pancake.SvgLine data={country?.data} let:d>
+					{#if d}
+						<path class="data" {d}></path>
+					{/if}
 				</Pancake.SvgLine>
 			{/each}
 
