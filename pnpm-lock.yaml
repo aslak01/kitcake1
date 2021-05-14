@@ -4,6 +4,7 @@ specifiers:
   '@fontsource/fira-mono': ^4.2.2
   '@lukeed/uuid': ^2.0.0
   '@sveltejs/adapter-node': next
+  '@sveltejs/adapter-vercel': next
   '@sveltejs/kit': next
   '@sveltejs/pancake': github:cryptodeal/pancake
   cookie: ^0.4.1
@@ -22,6 +23,7 @@ dependencies:
 
 devDependencies:
   '@sveltejs/adapter-node': 1.0.0-next.20
+  '@sveltejs/adapter-vercel': 1.0.0-next.17_svelte@3.38.2
   '@sveltejs/kit': 1.0.0-next.107_svelte@3.38.2
   eslint: 7.26.0
   eslint-config-prettier: 8.3.0_eslint@7.26.0
@@ -95,6 +97,34 @@ packages:
 
   /@sveltejs/adapter-node/1.0.0-next.20:
     resolution: {integrity: sha512-ornNW289XN4TyY3tRXVGH38FxrqLsw1MHn4oq92T7U6EqnSbw/22waMZnPBQUxcj5GxZsXuuFjeBjn1BWt0x2A==}
+    dev: true
+
+  /@sveltejs/adapter-vercel/1.0.0-next.17_svelte@3.38.2:
+    resolution: {integrity: sha512-35Z4R9V4+katvCZz37+E3pjcacQq8goIqwuClIVnnSK7+OUd6LoGb/cFoHm7OdvoSLUKaXSZ9/bLF/hwpmfJhQ==}
+    dependencies:
+      '@sveltejs/kit': 1.0.0-next.104_svelte@3.38.2
+      esbuild: 0.11.21
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - svelte
+    dev: true
+
+  /@sveltejs/kit/1.0.0-next.104_svelte@3.38.2:
+    resolution: {integrity: sha512-1ww5NvpGYJdKXR4bfxo04AM4izcJwTziFIVrImq3jqS2b4d8l3KfrJOqgv+e07RvW/WakrCRPAyZzeHpXLdkZg==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+    peerDependencies:
+      svelte: ^3.38.2
+    dependencies:
+      '@sveltejs/vite-plugin-svelte': 1.0.0-next.10_svelte@3.38.2+vite@2.3.2
+      cheap-watch: 1.0.3
+      sade: 1.7.4
+      svelte: 3.38.2
+      vite: 2.3.2
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
     dev: true
 
   /@sveltejs/kit/1.0.0-next.107_svelte@3.38.2:
