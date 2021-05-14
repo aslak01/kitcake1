@@ -1,24 +1,24 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@fontsource/fira-mono': ^4.2.2
+  '@fontsource/fira-mono': ^4.3.0
   '@lukeed/uuid': ^2.0.0
   '@sveltejs/adapter-node': next
   '@sveltejs/adapter-vercel': next
   '@sveltejs/kit': next
   '@sveltejs/pancake': github:cryptodeal/pancake
   cookie: ^0.4.1
-  eslint: ^7.22.0
-  eslint-config-prettier: ^8.1.0
+  eslint: ^7.26.0
+  eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^3.2.0
   prettier: ~2.2.1
-  prettier-plugin-svelte: ^2.2.0
-  svelte: ^3.34.0
+  prettier-plugin-svelte: ^2.3.0
+  svelte: ^3.38.2
 
 dependencies:
   '@fontsource/fira-mono': 4.3.0
   '@lukeed/uuid': 2.0.0
-  '@sveltejs/pancake': github.com/cryptodeal/pancake/47ea57a0bcc281dcef8d035882479511c3334e2f
+  '@sveltejs/pancake': github.com/cryptodeal/pancake/de897d210ecb24c7e5c6cc5a3642e7cf0629f67e
   cookie: 0.4.1
 
 devDependencies:
@@ -1054,8 +1054,8 @@ packages:
     resolution: {integrity: sha512-aIVecm5ucOzwhtKbl0zkfg0ZSOUR9c2da0k8cIc9umjjzkvVCWUUX/UHZ1CLPsv4wmJLqt0aWeLB7p9n9JDwYQ==}
     dev: false
 
-  github.com/cryptodeal/pancake/47ea57a0bcc281dcef8d035882479511c3334e2f:
-    resolution: {tarball: https://codeload.github.com/cryptodeal/pancake/tar.gz/47ea57a0bcc281dcef8d035882479511c3334e2f}
+  github.com/cryptodeal/pancake/de897d210ecb24c7e5c6cc5a3642e7cf0629f67e:
+    resolution: {tarball: https://codeload.github.com/cryptodeal/pancake/tar.gz/de897d210ecb24c7e5c6cc5a3642e7cf0629f67e}
     name: '@sveltejs/pancake'
     version: 0.0.17
     dependencies:

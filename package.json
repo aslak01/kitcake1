@@ -12,15 +12,15 @@
     "@sveltejs/adapter-node": "next",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.0",
     "prettier": "~2.2.1",
-    "prettier-plugin-svelte": "^2.2.0",
-    "svelte": "^3.34.0"
+    "prettier-plugin-svelte": "^2.3.0",
+    "svelte": "^3.38.2"
   },
   "dependencies": {
-    "@fontsource/fira-mono": "^4.2.2",
+    "@fontsource/fira-mono": "^4.3.0",
     "@lukeed/uuid": "^2.0.0",
     "@sveltejs/pancake": "github:cryptodeal/pancake",
     "cookie": "^0.4.1"
