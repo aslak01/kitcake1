@@ -4,6 +4,8 @@
 
 <script>
 	import LifeExpt from '$lib/lifeExpt.svelte';
+	import Co2 from '$lib/co2chart/index.svelte'
+	import Pop from '$lib/population/index.svelte'
 </script>
 
 <svelte:head>
@@ -11,5 +13,7 @@
 </svelte:head>
 
 <section>
+	<Co2 />
+	<Pop />
 	<LifeExpt />
 </section>
