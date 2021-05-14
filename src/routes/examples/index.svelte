@@ -13,6 +13,8 @@
 
 	// pancake-ce:
 	import SlopeGraph from './slopeGraph/index.svelte'
+	import LineChart from './lineChart/index.svelte'
+	import ColumnChart from './columnChart/index.svelte'
 
 	// const modules = import.meta.glob('./*/index.svelte')
 	// $: console.log("import.meta.glob", modules)
@@ -32,12 +34,14 @@
 		{/if}
 	</pre> -->
 	<!-- <Treemap /> -->
+	<Co2 />
+	<Pop />
+	<LifeExpt />
+	<ColumnChart />
+	<LineChart />
 	<SlopeGraph />
 	<StackedArea />
 	<StackedColumns />
 	<StackedBars />
-	<Co2 />
-	<Pop />
-	<LifeExpt />
 </section>
 

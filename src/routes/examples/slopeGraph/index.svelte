@@ -453,7 +453,7 @@
 </div>
 <p>
   Based on
-  <a href="http://skedasis.com/d3/slopegraph/">
-    http://skedasis.com/d3/slopegraph/
-  </a>
+  <a href="#">
+    http://skedasis.com/d3/slopegraph/ 
+  </a> (link removed because domain is dead)
 </p>
