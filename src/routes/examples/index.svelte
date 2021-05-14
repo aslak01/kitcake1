@@ -9,7 +9,10 @@
 	import StackedBars from './stackedBars/index.svelte'
 	import StackedColumns from './stackedColumns/index.svelte'
 	import StackedArea from './stackedArea/index.svelte'
+	// import Treemap from './treemap/index.svelte'
 
+	// pancake-ce:
+	import SlopeGraph from './slopeGraph/index.svelte'
 
 	// const modules = import.meta.glob('./*/index.svelte')
 	// $: console.log("import.meta.glob", modules)
@@ -28,6 +31,8 @@
 			{/each}
 		{/if}
 	</pre> -->
+	<!-- <Treemap /> -->
+	<SlopeGraph />
 	<StackedArea />
 	<StackedColumns />
 	<StackedBars />
