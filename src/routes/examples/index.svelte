@@ -11,7 +11,7 @@ export const faqs = faq.sort(sortFAQS).map(({ metadata, html }) => ({
 }));
 </script>
 <script>
-	import LifeExpt from './Lifeexp/index.svelte';
+	import LifeExpt from './lifeexp/index.svelte';
 	import Co2 from './co2chart/index.svelte'
 	import Pop from './population/index.svelte'
 
