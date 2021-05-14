@@ -1,8 +1,4 @@
 <script context="module">
-	export const prerender = true;
-</script>
-
-<script>
 	import { browser, dev } from '$app/env';
 	// we don't need any JS on this page, though we'll load
 	// it in dev so that we get hot module replacement...
@@ -15,7 +11,6 @@
 	// since there's no dynamic data here, we can prerender
 	// it so that it gets served as a static asset in prod
 	export const prerender = true;
-
 </script>
 
 <svelte:head>
