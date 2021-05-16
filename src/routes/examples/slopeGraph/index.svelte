@@ -1,18 +1,15 @@
 <script>
   // Source: https://raw.githubusercontent.com/KristerV/pancake-ce/master/site/examples/data/5/App.svelte
-  import * as Pancake from "@sveltejs/pancake";
-  import { fade } from "svelte/transition";
-  import data from "./data.js";
+  import * as Pancake from '@sveltejs/pancake';
+  import { fade } from 'svelte/transition';
+  import data from './data.js';
 
   $: isSlopeHovered = false;
   $: hoverId = null;
   $: isLeftToolTip = true;
   $: isRightToolTip = true;
 
-  $: displayData =
-    isSlopeHovered != false && hoverId
-      ? data.find(d => d.shape === hoverId)
-      : "";
+  $: displayData = isSlopeHovered != false && hoverId ? data.find((d) => d.shape === hoverId) : '';
   let y2 = -Infinity;
   let y1 = Infinity;
 
@@ -23,7 +20,11 @@
     { x: 2.5, y: 95 }
   ];
 
-  const leftArrow = [{ x: 0.9, y: 60 }, { x: 0.5, y: 45 }, { x: 0.5, y: 45 }];
+  const leftArrow = [
+    { x: 0.9, y: 60 },
+    { x: 0.5, y: 45 },
+    { x: 0.5, y: 45 }
+  ];
 
   //array of the left lables in order by default
   const left_labels = data.reduce((a, c) => {
@@ -59,11 +60,11 @@
   });
 
   //our initial shift centers svg line to center of text
-  let left_label_shifts = data.map(d => {
-    return "- .5rem";
+  let left_label_shifts = data.map((d) => {
+    return '- .5rem';
   });
-  let right_label_shifts = data.map(d => {
-    return "- .5rem";
+  let right_label_shifts = data.map((d) => {
+    return '- .5rem';
   });
 
   //Look for overlapping pairs that can be shifted apart with minimal disruption
@@ -103,25 +104,22 @@
           left_label_shifts[i] = (15 - diff) * -1;
           left_label_shifts[i + 1] = -4;
         } else {
-          findClusters(data, i, data.length - 2, "y2001", leftClusters);
+          findClusters(data, i, data.length - 2, 'y2001', leftClusters);
         }
       }
     }
   }
 
-  const sorted_by_right_labels = Array.prototype.slice
-    .call(data)
-    .sort((a, b) => {
-      return b.y2002 - a.y2002;
-    });
-  console.log("sorted by right labels", sorted_by_right_labels);
+  const sorted_by_right_labels = Array.prototype.slice.call(data).sort((a, b) => {
+    return b.y2002 - a.y2002;
+  });
+  console.log('sorted by right labels', sorted_by_right_labels);
 
   for (let i = 0; i < data.length; i++) {
     if (i != 0 && i < data.length - 2) {
       let nxt = sorted_by_right_labels[i + 1].y2002;
       if (sorted_by_right_labels[i].y2002 - nxt < 15) {
-        let space_above =
-          sorted_by_right_labels[i - 1].y2002 - sorted_by_right_labels[i].y2002;
+        let space_above = sorted_by_right_labels[i - 1].y2002 - sorted_by_right_labels[i].y2002;
         let space_below = nxt - sorted_by_right_labels[i + 2].y2002;
         if (space_above > 7 && space_below > 6) {
           let diff = sorted_by_right_labels[i].y2002 - nxt;
@@ -134,7 +132,7 @@
             sorted_by_right_labels,
             i,
             sorted_by_right_labels.length - 2,
-            "y2002",
+            'y2002',
             rightClusters
           );
         }
@@ -143,28 +141,31 @@
   }
 
   //define svg points
-  const points = data.map(d => ({
-    p: [{ x: 1, y: d.y2001 }, { x: 2, y: d.y2002 }],
+  const points = data.map((d) => ({
+    p: [
+      { x: 1, y: d.y2001 },
+      { x: 2, y: d.y2002 }
+    ],
     id: d.shape
   }));
 
   function toggleHovered() {
     isSlopeHovered = !isSlopeHovered;
-    console.log("slope hovered ", isSlopeHovered);
+    console.log('slope hovered ', isSlopeHovered);
   }
 
   function updateHoverId(id) {
     if (isSlopeHovered) {
-      if (leftClusters.find(d => d.shape === id) != undefined) {
+      if (leftClusters.find((d) => d.shape === id) != undefined) {
         isLeftToolTip = true;
       }
-      if (rightClusters.find(d => d.shape === id) != undefined) {
+      if (rightClusters.find((d) => d.shape === id) != undefined) {
         isRightToolTip = true;
       }
       hoverId = id;
-      console.log(id, "hovered");
+      console.log(id, 'hovered');
     } else {
-      hoverId = "";
+      hoverId = '';
     }
   }
 
@@ -178,6 +179,140 @@
     updateHoverId(null);
   }
 </script>
+
+<div class="chart">
+  <Pancake.Chart {y2} y1={0} x1={0} x2={3}>
+    <Pancake.Box {y2}>
+      <div class="left-header">2001</div>
+    </Pancake.Box>
+
+    <Pancake.Box {y2} x1={1} x2={2}>
+      <h2 class="title">UFO Sightings (By Shape)</h2>
+    </Pancake.Box>
+    <Pancake.Box {y2} x1={2} x2={3}>
+      <div class="right-header">2002</div>
+    </Pancake.Box>
+
+    <Pancake.Svg>
+      <Pancake.SvgLine data={rightArrow} let:d>
+        <path class="arrows" {d} />
+      </Pancake.SvgLine>
+      <Pancake.SvgLine data={leftArrow} let:d>
+        <path class="arrows" {d} />
+      </Pancake.SvgLine>
+
+      {#each points as point, i}
+        <Pancake.SvgLine data={point.p} let:d>
+          <path
+            on:mouseenter={() => {
+              highlightSlope(point.id);
+            }}
+            on:mouseout={cancelHighlight}
+            class={`data ${
+              hoverId === point.id
+                ? 'highlight'
+                : point.p[0].y > point.p[1].y
+                ? 'downward'
+                : 'upward'
+            }`}
+            {d}
+          />
+        </Pancake.SvgLine>
+      {/each}
+    </Pancake.Svg>
+
+    {#each data as d, i}
+      {#if leftClusters.find((j) => j.shape === d.shape) === undefined}
+        <Pancake.Box x2={1} y2={d.y2001} y1={0}>
+          <div
+            on:mouseenter={() => highlightSlope(d.shape)}
+            on:mouseout={cancelHighlight}
+            class={`left-labels ${d.shape === hoverId ? 'highlight' : ''}`}
+            style={`transform: translate(0, ${left_label_shifts[i]}px)`}
+          >
+            {`${d.shape}`}
+          </div>
+        </Pancake.Box>
+      {/if}
+    {/each}
+    {#each data as d, i}
+      {#if rightClusters.find((j) => j.shape === d.shape) === undefined}
+        <Pancake.Box x1={2} x2={3} y2={d.y2002} y1={0}>
+          <div
+            on:mouseenter={() => highlightSlope(d.shape)}
+            on:mouseout={cancelHighlight}
+            class={`right-labels ${d.shape === hoverId ? 'highlight' : ''}`}
+            style={`transform: translate(0, ${right_label_shifts[i]}px)`}
+          >
+            {`${d.shape} `}
+          </div>
+        </Pancake.Box>
+      {/if}
+    {/each}
+    <Pancake.Box
+      x2={1}
+      y2={leftClusters[0].y2001 + 30}
+      y1={leftClusters[0].y2001 + 30 - leftClusters.length * 15}
+    >
+      {#if isLeftToolTip}
+        <div transition:fade class="tool-tip-container left">
+          {#each leftClusters as d}
+            <div
+              on:mouseenter={() => highlightSlope(d.shape)}
+              on:mouseout={cancelHighlight}
+              class={`tool-tip  ${d.shape === hoverId ? 'highlight' : ''}`}
+            >
+              {`${d.shape}`}
+            </div>
+          {/each}
+        </div>
+      {/if}
+    </Pancake.Box>
+
+    <Pancake.Box
+      x1={2}
+      x2={3}
+      y1={rightClusters[0].y2002}
+      y2={rightClusters[0].y2002 - rightClusters.length * 15}
+    >
+      {#if isRightToolTip}
+        <div transition:fade class="tool-tip-container right">
+          {#each rightClusters as d}
+            <div
+              on:mouseenter={() => highlightSlope(d.shape)}
+              on:mouseout={cancelHighlight}
+              class={`tool-tip  ${d.shape === hoverId ? 'highlight' : ''}`}
+            >
+              {`${d.shape}`}
+            </div>
+          {/each}
+        </div>
+      {/if}
+    </Pancake.Box>
+
+    {#if hoverId}
+      <Pancake.Box x1={1} x2={2} y1={400} y2={550}>
+        <div transition:fade class="result">
+          <h2>{hoverId}</h2>
+          <div class="yr">
+            <div class="l">
+              <h3>2001</h3>
+              <p>{displayData.y2001}</p>
+            </div>
+            <div class="r">
+              <h3>2002</h3>
+              <p>{displayData.y2002}</p>
+            </div>
+          </div>
+        </div>
+      </Pancake.Box>
+    {/if}
+  </Pancake.Chart>
+</div>
+<p>
+  Based on
+  <a href="#"> http://skedasis.com/d3/slopegraph/ </a> (link removed because domain is dead)
+</p>
 
 <style>
   .chart {
@@ -332,128 +467,3 @@
     }
   }
 </style>
-
-<div class="chart">
-  <Pancake.Chart {y2} y1={0} x1={0} x2={3}>
-
-    <Pancake.Box {y2}>
-      <div class="left-header">2001</div>
-    </Pancake.Box>
-
-    <Pancake.Box {y2} x1={1} x2={2}>
-      <h2 class="title">UFO Sightings (By Shape)</h2>
-    </Pancake.Box>
-    <Pancake.Box {y2} x1={2} x2={3}>
-      <div class="right-header">2002</div>
-    </Pancake.Box>
-
-    <Pancake.Svg>
-      <Pancake.SvgLine data={rightArrow} let:d>
-        <path class="arrows" {d} />
-      </Pancake.SvgLine>
-      <Pancake.SvgLine data={leftArrow} let:d>
-        <path class="arrows" {d} />
-      </Pancake.SvgLine>
-
-      {#each points as point, i}
-        <Pancake.SvgLine data={point.p} let:d>
-          <path
-            on:mouseenter={() => {
-              highlightSlope(point.id);
-            }}
-            on:mouseout={cancelHighlight}
-            class={`data ${hoverId === point.id ? 'highlight' : point.p[0].y > point.p[1].y ? 'downward' : 'upward'}`}
-            {d} />
-        </Pancake.SvgLine>
-      {/each}
-    </Pancake.Svg>
-
-    {#each data as d, i}
-      {#if leftClusters.find(j => j.shape === d.shape) === undefined}
-        <Pancake.Box x2={1} y2={d.y2001} y1={0}>
-          <div
-            on:mouseenter={() => highlightSlope(d.shape)}
-            on:mouseout={cancelHighlight}
-            class={`left-labels ${d.shape === hoverId ? 'highlight' : ''}`}
-            style={`transform: translate(0, ${left_label_shifts[i]}px)`}>
-            {`${d.shape}`}
-          </div>
-        </Pancake.Box>
-      {/if}
-    {/each}
-    {#each data as d, i}
-      {#if rightClusters.find(j => j.shape === d.shape) === undefined}
-        <Pancake.Box x1={2} x2={3} y2={d.y2002} y1={0}>
-          <div
-            on:mouseenter={() => highlightSlope(d.shape)}
-            on:mouseout={cancelHighlight}
-            class={`right-labels ${d.shape === hoverId ? 'highlight' : ''}`}
-            style={`transform: translate(0, ${right_label_shifts[i]}px)`}>
-            {`${d.shape} `}
-          </div>
-        </Pancake.Box>
-      {/if}
-    {/each}
-    <Pancake.Box
-      x2={1}
-      y2={leftClusters[0].y2001 + 30}
-      y1={leftClusters[0].y2001 + 30 - leftClusters.length * 15}>
-      {#if isLeftToolTip}
-        <div transition:fade class="tool-tip-container left">
-          {#each leftClusters as d}
-            <div
-              on:mouseenter={() => highlightSlope(d.shape)}
-              on:mouseout={cancelHighlight}
-              class={`tool-tip  ${d.shape === hoverId ? 'highlight' : ''}`}>
-              {`${d.shape}`}
-            </div>
-          {/each}
-        </div>
-      {/if}
-    </Pancake.Box>
-
-    <Pancake.Box
-      x1={2}
-      x2={3}
-      y1={rightClusters[0].y2002}
-      y2={rightClusters[0].y2002 - rightClusters.length * 15}>
-      {#if isRightToolTip}
-        <div transition:fade class="tool-tip-container right">
-          {#each rightClusters as d}
-            <div
-              on:mouseenter={() => highlightSlope(d.shape)}
-              on:mouseout={cancelHighlight}
-              class={`tool-tip  ${d.shape === hoverId ? 'highlight' : ''}`}>
-              {`${d.shape}`}
-            </div>
-          {/each}
-        </div>
-      {/if}
-    </Pancake.Box>
-
-    {#if hoverId}
-      <Pancake.Box x1={1} x2={2} y1={400} y2={550}>
-        <div transition:fade class="result">
-          <h2>{hoverId}</h2>
-          <div class="yr">
-            <div class="l">
-              <h3>2001</h3>
-              <p>{displayData.y2001}</p>
-            </div>
-            <div class="r">
-              <h3>2002</h3>
-              <p>{displayData.y2002}</p>
-            </div>
-          </div>
-
-        </div>
-      </Pancake.Box>
-    {/if}
-  </Pancake.Chart>
-</div>
-<p>
-  Based on
-  <a href="#">
-    http://skedasis.com/d3/slopegraph/ 
-  </a> (link removed because domain is dead)
-</p>

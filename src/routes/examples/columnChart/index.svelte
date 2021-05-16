@@ -1,6 +1,6 @@
 <script>
   // Source: https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/7/App.svelte
-  import * as Pancake from "@sveltejs/pancake";
+  import * as Pancake from '@sveltejs/pancake';
   const sourceData = [10, 2, 4, 9, 14, 12, 5, 8, 9];
   const data = sourceData.map((item, i) => ({ x: i, y: item }));
   const vertMaxVal = Math.max(null, ...sourceData) + 2;
@@ -8,6 +8,26 @@
   const xAxisTickCount = data.length; // approximate
   const xAxisAdjustment = -0.5;
 </script>
+
+<div class="chart">
+  <Pancake.Chart x1={xAxisAdjustment} x2={data.length - 1} y1={0} y2={vertMaxVal}>
+    <Pancake.Box x1={xAxisAdjustment} x2={data.length + xAxisAdjustment} y2={vertMaxVal}>
+      <div class="axes" />
+    </Pancake.Box>
+
+    <Pancake.Grid vertical count={xAxisTickCount} let:value>
+      <span class="x label">{value}</span>
+    </Pancake.Grid>
+
+    <Pancake.Grid horizontal count={3} let:value>
+      <span class="y label">{value}</span>
+    </Pancake.Grid>
+
+    <Pancake.Columns {data} width={barWidth}>
+      <div class="column" />
+    </Pancake.Columns>
+  </Pancake.Chart>
+</div>
 
 <style>
   .chart {
@@ -46,30 +66,3 @@
     background-color: #1f77b4;
   }
 </style>
-
-<div class="chart">
-  <Pancake.Chart
-    x1={xAxisAdjustment}
-    x2={data.length - 1}
-    y1={0}
-    y2={vertMaxVal}>
-    <Pancake.Box
-      x1={xAxisAdjustment}
-      x2={data.length + xAxisAdjustment}
-      y2={vertMaxVal}>
-      <div class="axes" />
-    </Pancake.Box>
-
-    <Pancake.Grid vertical count={xAxisTickCount} let:value>
-      <span class="x label">{value}</span>
-    </Pancake.Grid>
-
-    <Pancake.Grid horizontal count={3} let:value>
-      <span class="y label">{value}</span>
-    </Pancake.Grid>
-
-    <Pancake.Columns {data} width={barWidth}>
-      <div class="column" />
-    </Pancake.Columns>
-  </Pancake.Chart>
-</div>

@@ -1,6 +1,6 @@
 <script>
   // Source: https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/6/App.svelte
-  import * as Pancake from "@sveltejs/pancake";
+  import * as Pancake from '@sveltejs/pancake';
   const points = [
     { x: 0, y: 0 },
     { x: 1, y: 1 },
@@ -15,6 +15,28 @@
     { x: 10, y: 100 }
   ];
 </script>
+
+<div class="chart">
+  <Pancake.Chart x1={0} x2={10} y1={0} y2={100}>
+    <Pancake.Box x2={10} y2={100}>
+      <div class="axes" />
+    </Pancake.Box>
+
+    <Pancake.Grid vertical count={5} let:value>
+      <span class="x label">{value}</span>
+    </Pancake.Grid>
+
+    <Pancake.Grid horizontal count={3} let:value>
+      <span class="y label">{value}</span>
+    </Pancake.Grid>
+
+    <Pancake.Svg>
+      <Pancake.SvgLine data={points} let:d>
+        <path class="data" {d} />
+      </Pancake.SvgLine>
+    </Pancake.Svg>
+  </Pancake.Chart>
+</div>
 
 <style>
   .chart {
@@ -52,25 +74,3 @@
     fill: none;
   }
 </style>
-
-<div class="chart">
-  <Pancake.Chart x1={0} x2={10} y1={0} y2={100}>
-    <Pancake.Box x2={10} y2={100}>
-      <div class="axes" />
-    </Pancake.Box>
-
-    <Pancake.Grid vertical count={5} let:value>
-      <span class="x label">{value}</span>
-    </Pancake.Grid>
-
-    <Pancake.Grid horizontal count={3} let:value>
-      <span class="y label">{value}</span>
-    </Pancake.Grid>
-
-    <Pancake.Svg>
-      <Pancake.SvgLine data={points} let:d>
-        <path class="data" {d} />
-      </Pancake.SvgLine>
-    </Pancake.Svg>
-  </Pancake.Chart>
-</div>
