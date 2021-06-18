@@ -13,7 +13,7 @@
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "d3-hierarchy": "^2.0.0",
-    "eslint": "^7.26.0",
+    "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.0",
     "prettier": "~2.2.1",
@@ -21,11 +21,11 @@
     "svelte": "^3.38.2"
   },
   "dependencies": {
-    "yootils": "github:Rich-Harris/yootils",
-    "@fontsource/fira-mono": "^4.3.0",
+    "@fontsource/fira-mono": "^4.4.5",
     "@lukeed/uuid": "^2.0.0",
     "@sveltejs/pancake": "github:cryptodeal/pancake#plotNull",
-    "cookie": "^0.4.1"
+    "cookie": "^0.4.1",
+    "yootils": "github:Rich-Harris/yootils"
   },
   "type": "module"
 }
