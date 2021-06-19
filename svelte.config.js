@@ -4,8 +4,13 @@ import vercel from '@sveltejs/adapter-vercel';
 const config = {
   kit: {
     adapter: vercel(),
-    // hydrate the <div id="svelte"> element in src/app.html
-    target: '#svelte'
+    target: '#svelte',
+    // vite: {
+    //   optimizeDeps: {
+    //     include: ["highlight.js/lib/core"],
+    //   },
+    // },
+    
     // vite: {
     //   ssr: {
     //     noExternal: []
