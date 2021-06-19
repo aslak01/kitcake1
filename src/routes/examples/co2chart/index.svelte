@@ -43,7 +43,10 @@
     return (100 * (date - minx)) / (maxx - minx);
   };
 </script>
-
+<div class="center">
+  <h1>CO<sub>2</sub> chart</h1>
+  <h3>From <a href="https://pancake-charts.surge.sh/">Rich Harris' examples page</a></h3>
+</div>
 <div class="chart">
   <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy}>
     <Pancake.Grid horizontal count={5} let:value let:last>

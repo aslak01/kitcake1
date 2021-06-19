@@ -9,6 +9,11 @@
   const xAxisAdjustment = -0.5;
 </script>
 
+<div class="center">
+  <h1>Column chart</h1>
+  <h3>From <a href="https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/7/App.svelte">Pancake CE examples</a></h3>
+</div>
+
 <div class="chart">
   <Pancake.Chart x1={xAxisAdjustment} x2={data.length - 1} y1={0} y2={vertMaxVal}>
     <Pancake.Box x1={xAxisAdjustment} x2={data.length + xAxisAdjustment} y2={vertMaxVal}>
@@ -31,8 +36,8 @@
 
 <style>
   .chart {
-    height: 300px;
-    width: 600px;
+    height: 400px;
+    width: 100%;
     padding: 3em 2em 2em 3em;
     box-sizing: border-box;
   }

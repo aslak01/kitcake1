@@ -92,6 +92,11 @@
 
 <svelte:window on:resize={handle_resize} />
 
+<div class="center">
+  <h1>Population chart</h1>
+  <h3>From <a href="https://pancake-charts.surge.sh/">Rich Harris' examples page</a></h3>
+</div>
+
 <div class="chart {size}" bind:this={el}>
   <div class="background">
     <Pancake.Chart x1={$x1 - 2.5} x2={$x2 + 2.5} y1={0} y2={max} clip>

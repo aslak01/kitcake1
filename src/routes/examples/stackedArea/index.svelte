@@ -48,6 +48,11 @@
       .concat(values.map((d) => ({ x: d.i, y: d.start })).reverse());
 </script>
 
+<div class="center">
+  <h1>Stacked area</h1>
+  <h3>From <a href="https://github.com/Rich-Harris/pancake/issues/1">Rich Harris' additional examples in a github issue</a></h3>
+</div>
+
 <div class="chart">
   <Pancake.Chart {x1} {x2} y1={0} y2={max}>
     <Pancake.Grid horizontal count={5} let:value let:first>

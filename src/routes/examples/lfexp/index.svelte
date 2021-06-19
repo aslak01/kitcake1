@@ -29,6 +29,12 @@
   }, []);
 </script>
 
+<div class="center">
+  <h1>Life expectancy chart</h1>
+  <h3>From <a href="https://pancake-charts.surge.sh/">Rich Harris' examples page</a></h3>
+</div>
+
+
 <input placeholder="Type to filter" bind:value={filter} />
 
 <div class="chart">

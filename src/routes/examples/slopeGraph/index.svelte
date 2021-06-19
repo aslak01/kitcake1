@@ -180,6 +180,11 @@
   }
 </script>
 
+<div class="center">
+  <h1>Slope graph</h1>
+  <h3>From <a href="https://raw.githubusercontent.com/KristerV/pancake-ce/master/site/examples/data/5/App.svelte">Pancake CE examples</a></h3>
+</div>
+
 <div class="chart">
   <Pancake.Chart {y2} y1={0} x1={0} x2={3}>
     <Pancake.Box {y2}>
@@ -311,7 +316,7 @@
 </div>
 <p>
   Based on
-  <a href="#"> http://skedasis.com/d3/slopegraph/ </a> (link removed because domain is dead)
+  http://skedasis.com/d3/slopegraph/ (link removed because domain is dead)
 </p>
 
 <style>
