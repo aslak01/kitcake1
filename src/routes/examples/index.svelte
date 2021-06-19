@@ -5,13 +5,13 @@
 
 <script>
   function nextChart() {
-    (number + 1) < charts.length ? number += 1 : number = 0
+    number + 1 < charts.length ? (number += 1) : (number = 0);
   }
   function prevChart() {
-    (number - 1) > 0 ? number -= 1 : number = charts.length - 1
+    number - 1 >= 0 ? (number -= 1) : (number = charts.length - 1);
   }
-  let number
-  $: number = 0
+  let number;
+  $: number = 0;
 </script>
 
 <svelte:head>
@@ -20,8 +20,8 @@
 
 <nav>
   <h2>Browse examples</h2>
-  <button on:click="{prevChart}">&larr;</button>
-  <button on:click="{nextChart}">&rarr;</button>
+  <button on:click={prevChart}>&larr;</button>
+  <button on:click={nextChart}>&rarr;</button>
 </nav>
 <section>
   {#if charts !== null}
