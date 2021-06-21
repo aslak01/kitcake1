@@ -1,16 +1,20 @@
 <script>
-	import * as Pancake from '@sveltejs/pancake';
-	import {getContext} from 'svelte';
+	import TreemapNode from './TreemapNode.svelte';
 
-	export let node;
+	export let root;
 </script>
 
-<Pancake.Box x1={node.x0} x2={node.x1} y1={node.y1} y2={node.y0}>
-	<slot {node}></slot>
-</Pancake.Box>
-
-{#each (node.children || []) as child}
-	<svelte:self node={child} let:node>
+<pancake-treemap>
+	<TreemapNode node={root} let:node>
 		<slot {node}></slot>
-	</svelte:self>
-{/each}
+	</TreemapNode>
+</pancake-treemap>
+
+<style>
+	pancake-treemap {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+</style>
