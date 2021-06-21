@@ -50,5 +50,5 @@ const calcPctChange = (data) => {
 export {calcPctChange}
 
 export const convertToPositiveInt = (number) => {
-	return Math.abs(number)
+	return .5 + Math.abs(number) / 100
 }
