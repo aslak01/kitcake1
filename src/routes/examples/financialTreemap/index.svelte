@@ -8,7 +8,7 @@
 	import Treemap from './Treemap.svelte';
 	import spData from './sp500.js'
 	import data from './data.js'
-	import {calcPctChange} from './utils.js'
+	import {calcPctChange, convertToPositiveInt} from './utils.js'
 	
 	function findWithAttr(array, attr, value) {
     for(var i = 0; i < array.length; i += 1) {
@@ -92,7 +92,11 @@
 					class:leaf={!node.children}
 					on:click="{() => select(node)}"
 				>
-					<div class:negative={node.data.pctChange<0} class="contents">
+					<div 
+            class:negative={node.data.pctChange<0} 
+            class="contents"
+            style="--color-intensity: {convertToPositiveInt(node.data.pctChange)}"
+          >
 						<strong>{node.data.name}</strong>
 						<span>{`$${yootils.commas(node.value)}`}</span>
 						<span>{`${node.data.pctChange.toFixed(2)}%`}</span>
@@ -148,8 +152,8 @@
 		height: 100%;
 		padding: 0.3rem 0.4rem;
 		border: 1px solid white;
-		background-color: hsl(120, 40%, 50%);
-		color: white;
+		background-color: hsla(120, 40%, 50%, var(--color-intensity));
+		color: black;
 		border-radius: 4px;
 		box-sizing: border-box;
 	}
@@ -159,18 +163,18 @@
 		height: 100%;
 		padding: 0.3rem 0.4rem;
 		border: 1px solid white;
-		background-color: hsl(0, 40%, 50%);
-		color: white;
+		/* background-color: hsl(0, 40%, 50%); */
+		background-color: hsla(0, 50%, 40%, var(--color-intensity));
 		border-radius: 4px;
 		box-sizing: border-box;
 	}
 
 	.node:not(.leaf) .contents {
-		background-color: hsl(120, 40%, 38%);
+		background-color: hsla(120, 40%, 50%, var(--color-intensity));
 	}
 	
 	.node:not(.leaf) .contents.negative {
-		background-color: hsl(0, 50%, 40%);
+		background-color: hsla(0, 50%, 40%, var(--color-intensity));
 	}
 
 	strong, span {

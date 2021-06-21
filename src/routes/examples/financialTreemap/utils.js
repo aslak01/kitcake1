@@ -48,3 +48,7 @@ const calcPctChange = (data) => {
 }
 
 export {calcPctChange}
+
+export const convertToPositiveInt = (number) => {
+	return Math.abs(number)
+}
