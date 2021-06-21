@@ -8,7 +8,7 @@
 	import Treemap from './Treemap.svelte';
 	import spData from './sp500.js'
 	import data from './data.js'
-	import {calcPctChange, convertToPositiveInt} from './utils.js'
+	import {calcPctChange, convertToPositiveFloat} from './utils.js'
 	
 	function findWithAttr(array, attr, value) {
     for(var i = 0; i < array.length; i += 1) {
@@ -95,7 +95,7 @@
 					<div 
             class:negative={node.data.pctChange<0} 
             class="contents"
-            style="--color-intensity: {convertToPositiveInt(node.data.pctChange)}"
+            style="--color-intensity: {convertToPositiveFloat(node.data.pctChange)}"
           >
 						<strong>{node.data.name}</strong>
 						<span>{`$${yootils.commas(node.value)}`}</span>
