@@ -4,10 +4,9 @@
   import { tweened } from 'svelte/motion';
   import * as eases from 'svelte/easing';
   import { fade } from 'svelte/transition';
-  import * as yootils from 'yootils';
   import Treemap from './Treemap.svelte';
   import { data } from './data.json';
-  import { calcPctChange, convertToPositiveFloat } from './utils.js';
+  import { calcPctChange, convertToPositiveFloat, formatCurrency } from './utils.js';
 
   calcPctChange(data['children']);
 
@@ -86,7 +85,7 @@
             style="--color-intensity: {convertToPositiveFloat(node.data.pctChange)}"
           >
             <strong>{node.data.name}</strong>
-            <span>{`$${yootils.commas(node.value)}`}</span>
+            <span>{`$${formatCurrency(node.value)}`}</span>
             <span>{`${node.data.pctChange.toFixed(2)}%`}</span>
           </div>
         </div>
