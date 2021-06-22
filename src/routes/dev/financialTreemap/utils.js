@@ -48,3 +48,7 @@ const calcPctChange = (data) => {
 }
 
 export {calcPctChange}
+
+export const convertToPositiveFloat = (number) => {
+	return .5 + Math.abs(number) / 100
+}
