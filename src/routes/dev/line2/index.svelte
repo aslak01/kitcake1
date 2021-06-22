@@ -6,15 +6,15 @@
     let [id, date, number] = str.split('\t').map(parseFloat);
     // let [date, avg, trend] = str.split('\t').map(parseFloat);
     // if (avg === -99.99) avg = null;
-    date = new Date(date)
+    date = new Date(date);
     return { id, date, number };
   });
 
-  data.sort((a, b) => a.date - b.date)
+  data.sort((a, b) => a.date - b.date);
 
   const points = data.filter((d) => d.number);
 
-  console.log(points)
+  console.log(points);
 
   let minx = points[0].date;
   let maxx = points[points.length - 1].date;
@@ -49,32 +49,33 @@
     return (100 * (date - minx)) / (maxx - minx);
   };
 </script>
+
 <div class="wrapper">
   <div class="chart">
     <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy}>
       <Pancake.Grid horizontal count={5} let:value let:last>
         <div class="grid-line horizontal"><span>{value} {last ? 'guys' : ''}</span></div>
       </Pancake.Grid>
-  
+
       <Pancake.Grid vertical count={5} let:value>
         <div class="grid-line vertical" />
         <span class="year-label">{format(new Date(value))}</span>
       </Pancake.Grid>
-  
+
       <Pancake.Svg>
         <Pancake.SvgScatterplot data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path class="avg scatter" {d} />
         </Pancake.SvgScatterplot>
-  
+
         <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path class="avg" {d} />
         </Pancake.SvgLine>
-  
+
         <!-- <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.trend} let:d>
           <path class="trend" {d} />
         </Pancake.SvgLine> -->
       </Pancake.Svg>
-  
+
       <!-- chart title -->
       <!-- <Pancake.Point x={0} y={390}>
         <div class="text">
@@ -88,14 +89,14 @@
           </p>
         </div>
       </Pancake.Point> -->
-  
+
       <!-- note -->
       <!-- <Pancake.Point x={100} y={330}>
         <div class="text" style="right: 0; text-align: right;">
           <p><em>This chart will render correctly even if JavaScript is disabled.</em></p>
         </div>
       </Pancake.Point> -->
-  
+
       <!-- annotate highest point -->
       <Pancake.Point x={highest.date} y={highest.avg}>
         <div
@@ -105,7 +106,7 @@
           {highest.number} highest number &rarr;
         </div>
       </Pancake.Point>
-  
+
       <Pancake.Quadtree data={points} x={(d) => d.date} y={(d) => d.number} let:closest>
         {#if closest}
           <Pancake.Point x={closest.date} y={closest.number} let:d>

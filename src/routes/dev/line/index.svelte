@@ -14,21 +14,22 @@
     { x: 10, y: 100 }
   ];
 </script>
+
 <div class="chart-wrapper">
   <div class="chart">
     <Pancake.Chart x1={0} x2={10} y1={0} y2={50}>
       <Pancake.Box x2={10} y2={100}>
         <div class="axes" />
       </Pancake.Box>
-  
+
       <Pancake.Grid vertical count={5} let:value>
         <span class="x label">{value}</span>
       </Pancake.Grid>
-  
+
       <Pancake.Grid horizontal count={3} let:value>
         <span class="y label">{value}</span>
       </Pancake.Grid>
-  
+
       <Pancake.Svg>
         <Pancake.SvgLine data={points} let:d>
           <path class="data" {d} />

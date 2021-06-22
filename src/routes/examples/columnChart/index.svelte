@@ -11,7 +11,12 @@
 
 <div class="center">
   <h1>Column chart</h1>
-  <h3>From <a href="https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/7/App.svelte">Pancake CE examples</a></h3>
+  <h3>
+    From <a
+      href="https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/7/App.svelte"
+      >Pancake CE examples</a
+    >
+  </h3>
 </div>
 
 <div class="chart">

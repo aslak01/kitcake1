@@ -14,7 +14,11 @@
 
 <div class="center">
   <h1>Stacked bars</h1>
-  <h3>From <a href="https://github.com/Rich-Harris/pancake/issues/1">Rich Harris' additional examples in a github issue</a></h3>
+  <h3>
+    From <a href="https://github.com/Rich-Harris/pancake/issues/1"
+      >Rich Harris' additional examples in a github issue</a
+    >
+  </h3>
 </div>
 
 <div class="chart">

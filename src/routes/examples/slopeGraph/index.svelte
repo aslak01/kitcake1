@@ -182,7 +182,12 @@
 
 <div class="center">
   <h1>Slope graph</h1>
-  <h3>From <a href="https://raw.githubusercontent.com/KristerV/pancake-ce/master/site/examples/data/5/App.svelte">Pancake CE examples</a></h3>
+  <h3>
+    From <a
+      href="https://raw.githubusercontent.com/KristerV/pancake-ce/master/site/examples/data/5/App.svelte"
+      >Pancake CE examples</a
+    >
+  </h3>
 </div>
 
 <div class="chart">
@@ -314,10 +319,7 @@
     {/if}
   </Pancake.Chart>
 </div>
-<p>
-  Based on
-  http://skedasis.com/d3/slopegraph/ (link removed because domain is dead)
-</p>
+<p>Based on http://skedasis.com/d3/slopegraph/ (link removed because domain is dead)</p>
 
 <style>
   .chart {

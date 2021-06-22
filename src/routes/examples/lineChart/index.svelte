@@ -15,9 +15,15 @@
     { x: 10, y: 100 }
   ];
 </script>
+
 <div class="center">
   <h1>Line chart</h1>
-  <h3>From <a href="https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/6/App.svelte">Pancake CE examples</a></h3>
+  <h3>
+    From <a
+      href="https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/6/App.svelte"
+      >Pancake CE examples</a
+    >
+  </h3>
 </div>
 <div class="chart">
   <Pancake.Chart x1={0} x2={10} y1={0} y2={100}>
