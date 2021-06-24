@@ -59,7 +59,7 @@
   <div class="chart">
     <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy}>
       <Pancake.Grid horizontal count={5} let:value let:last>
-        <div class="grid-line horizontal"><span>{value} {last ? 'guys' : ''}</span></div>
+        <div class="grid-line horizontal"><span>{value} {last ? 'y' : ''}</span></div>
       </Pancake.Grid>
 
       <Pancake.Grid vertical count={5} let:value>
@@ -68,13 +68,17 @@
       </Pancake.Grid>
 
       <Pancake.Svg>
-        <Pancake.SvgScatterplot data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+        <!-- <Pancake.SvgScatterplot data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path class="avg scatter" {d} />
-        </Pancake.SvgScatterplot>
+        </Pancake.SvgScatterplot> -->
 
         <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path class="avg" {d} />
         </Pancake.SvgLine>
+
+        <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+          <path style="fill: lightblue; opacity: 0.3;" {d} />
+        </Pancake.SvgArea>
 
         <!-- <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.trend} let:d>
           <path class="trend" {d} />
@@ -130,11 +134,11 @@
 <style>
   .wrapper {
     width: 100%;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
   }
   .chart {
-    height: 450px;
-    width: 1000px;
+    height: 250px;
+    width: 100%;
     padding: 3em 0 2em 2em;
     margin: 0 0 36px 0;
     /* max-width: 80em; */
@@ -201,7 +205,7 @@
   }
 
   path.avg {
-    stroke: #676778;
+    stroke: #2b2b42;
     opacity: 0.5;
     stroke-linejoin: round;
     stroke-linecap: round;
@@ -248,9 +252,9 @@
     display: block;
   }
 
-  @media (min-width: 800px) {
+  /* @media (min-width: 800px) {
     .chart {
       height: 600px;
     }
-  }
+  } */
 </style>
