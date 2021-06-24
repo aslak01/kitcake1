@@ -1,16 +1,20 @@
 <script>
   import * as Pancake from '@sveltejs/pancake';
-  import tsv from './data.js';
+  // import tsv from './data.js';
+  import { createTimeSeriesData, formatDate } from './utils.js'
 
-  const data = tsv.split('\n').map((str) => {
-    let [id, date, number] = str.split('\t').map(parseFloat);
-    // let [date, avg, trend] = str.split('\t').map(parseFloat);
-    // if (avg === -99.99) avg = null;
-    date = new Date(date);
-    return { id, date, number };
-  });
+  // const data = tsv.split('\n').map((str) => {
+  //   let [id, date, number] = str.split('\t').map(parseFloat);
+  //   // let [date, avg, trend] = str.split('\t').map(parseFloat);
+  //   // if (avg === -99.99) avg = null;
+  //   date = new Date(date);
+  //   return { id, date, number };
+  // });
 
-  data.sort((a, b) => a.date - b.date);
+  // data.sort((a, b) => a.date - b.date);
+
+  const data = createTimeSeriesData(5, 0, 300)
+  console.log(data)
 
   const points = data.filter((d) => d.number);
 
@@ -37,13 +41,14 @@
 
   // const months = 'Jan Feb Mar Apr May June July Aug Sept Oct Nov Dec'.split(' ');
 
-  const format = (date) => {
-    const hour = date.getHours();
-    const day = date.getDate();
-    const month = date.getMonth();
 
-    return `${hour}, ${day}. ${month}`;
-  };
+  // const format = (date) => {
+  //   const hour = date.getHours();
+  //   const day = date.getDate();
+  //   const month = date.getMonth();
+
+  //   return `${hour}, ${day}. ${month}`;
+  // };
 
   const pc = (date) => {
     return (100 * (date - minx)) / (maxx - minx);
@@ -59,7 +64,7 @@
 
       <Pancake.Grid vertical count={5} let:value>
         <div class="grid-line vertical" />
-        <span class="year-label">{format(new Date(value))}</span>
+        <span class="year-label">{formatDate(new Date(value))}</span>
       </Pancake.Grid>
 
       <Pancake.Svg>
@@ -113,7 +118,7 @@
             <div class="focus" />
             <div class="tooltip" style="transform: translate(-{pc(closest.date)}%,0)">
               <strong>{closest.number} guests</strong>
-              <span>{format(closest.date)}</span>
+              <span>{formatDate(closest.date)}</span>
             </div>
           </Pancake.Point>
         {/if}
@@ -140,7 +145,7 @@
   }
   .chart {
     height: 450px;
-    width: 7000px;
+    width: 1000px;
     padding: 3em 0 2em 2em;
     margin: 0 0 36px 0;
     /* max-width: 80em; */
