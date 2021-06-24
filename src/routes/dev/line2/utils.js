@@ -28,7 +28,12 @@ export const createTimeSeriesData = (timerange, min, max) => {
       const date = new Date(
         currentDate.getTime() + hour * 60 * 60 * 1000
       )
-      const number = getRandomInt(min, max)
+      let number = 0
+      if (date.getHours() < 8 && date.getHours() > 1) {
+        number = getRandomInt(min, Math.abs((max - getRandomInt(min, max))))
+      } else {
+        number = getRandomInt(min, max)
+      }
       dateArray.push({date, number})
       hour++
     }
