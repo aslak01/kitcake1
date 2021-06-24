@@ -21,7 +21,7 @@ export const createTimeSeriesData = (timerange, min, max) => {
   let dateArray = [];
   let index = 0;
   
-  while (index <= timerange) {
+  while (index < timerange) {
     const currentDate = new Date(firstDate.getTime() + (index * 24 * 60 * 60 * 1000))
     let hour = 0;
     while (hour <= 24) {
