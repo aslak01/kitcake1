@@ -1,7 +1,7 @@
 <script>
   import * as Pancake from '@sveltejs/pancake';
   // import tsv from './data.js';
-  import { createTimeSeriesData, formatDate } from './utils.js'
+  import { createTimeSeriesData, formatDate, formatTime } from './utils.js'
 
   // const data = tsv.split('\n').map((str) => {
   //   let [id, date, number] = str.split('\t').map(parseFloat);
@@ -118,7 +118,7 @@
             <div class="focus" />
             <div class="tooltip" style="transform: translate(-{pc(closest.date)}%,0)">
               <strong>{closest.number} guests</strong>
-              <span>{formatDate(closest.date)}</span>
+              <span>{formatDate(closest.date)}, {formatTime(closest.date)}</span>
             </div>
           </Pancake.Point>
         {/if}
@@ -126,17 +126,6 @@
     </Pancake.Chart>
   </div>
 </div>
-
-<p>
-  Source: <a
-    target="_blank"
-    href="https://scrippsco2.ucsd.edu/data/atmospheric_co2/primary_mlo_co2_record.html"
-    >Scripps Institution of Oceanography</a
-  >. Based on
-  <a href="https://www.bloomberg.com/graphics/climate-change-data-green/carbon-clock.html"
-    >Carbon Clock by Bloomberg</a
-  >.
-</p>
 
 <style>
   .wrapper {

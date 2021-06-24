@@ -43,3 +43,9 @@ export const formatDate = (date, locale) => {
   const options = { day: 'numeric', month: 'numeric', year: '2-digit' }
   return date.toLocaleDateString(locale, options)
 }
+
+export const formatTime = (date, locale) => {
+  if (!locale) locale = 'no-NO'
+  const options = { hour: '2-digit', minute: '2-digit' }
+  return date.toLocaleTimeString(locale, options)
+}
