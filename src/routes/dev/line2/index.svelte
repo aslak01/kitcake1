@@ -1,5 +1,6 @@
 <script>
   import * as Pancake from '@sveltejs/pancake';
+  import SvgLine from './SvgLine.svelte'
   // import tsv from './data.js';
   import { createTimeSeriesData, formatDate, formatTime } from './utils.js'
 
@@ -62,7 +63,7 @@
         <div class="grid-line horizontal"><span>{value} {last ? 'y' : ''}</span></div>
       </Pancake.Grid>
 
-      <Pancake.Grid vertical count={5} let:value>
+      <Pancake.Grid vertical count={8} let:value>
         <div class="grid-line vertical" />
         <span class="year-label">{formatDate(new Date(value))}</span>
       </Pancake.Grid>
@@ -72,9 +73,9 @@
           <path class="avg scatter" {d} />
         </Pancake.SvgScatterplot> -->
 
-        <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+        <SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path class="avg" {d} />
-        </Pancake.SvgLine>
+        </SvgLine>
 
         <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path style="fill: lightblue; opacity: 0.3;" {d} />
