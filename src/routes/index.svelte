@@ -21,8 +21,9 @@
   <h1>Pancake Kit</h1>
 
   <p>
-    This is an attempt to combine <a href="https://kit.svelte.dev">SvelteKit</a> with the
-    underdocumented and underdeveloped <a href="https://pancake-charts.surge.sh/">Pancake</a> library.
+    This is an example of combining <a href="https://kit.svelte.dev">SvelteKit</a> with the
+    <a href="https://pancake-charts.surge.sh/">Pancake</a> library, aiming to provide more 
+    some community sourced documentation and examples of what the library can do.
   </p>
 </div>
 
