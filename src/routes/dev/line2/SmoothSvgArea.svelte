@@ -1,11 +1,12 @@
 <script>
-	import SvgPolygon from '@sveltejs/pancake/components/SvgPolygon.svelte';
+	import SmoothSvgPolygon from './SmoothSvgPolygon.svelte';
 	import { default_x, default_y } from '@sveltejs/pancake/utils/accessors.mjs';
 
 	export let data;
 	export let floor = 0;
 	export let x = default_x;
 	export let y = default_y;
+	export let smoothing = 0.3
 
 	$: points = [
 		{ x: x(data[0], 0), y: floor },
@@ -14,6 +15,6 @@
 	];
 </script>
 
-<SvgPolygon data={points} let:d>
+<SmoothSvgPolygon data={points} smoothing={smoothing} let:d>
 	<slot {d}></slot>
-</SvgPolygon>
+</SmoothSvgPolygon>

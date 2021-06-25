@@ -1,6 +1,7 @@
 <script>
   import * as Pancake from '@sveltejs/pancake';
   import SmoothSvgLine from './SmoothSvgLine.svelte'
+  import SmoothSvgArea from './SmoothSvgArea.svelte'
   // import tsv from './data.js';
   import { createTimeSeriesData, formatDate, formatTime } from './utils.js'
 
@@ -41,18 +42,6 @@
       highest = point;
     }
   }
-
-  // const months = 'Jan Feb Mar Apr May June July Aug Sept Oct Nov Dec'.split(' ');
-
-
-  // const format = (date) => {
-  //   const hour = date.getHours();
-  //   const day = date.getDate();
-  //   const month = date.getMonth();
-
-  //   return `${hour}, ${day}. ${month}`;
-  // };
-
   const pc = (date) => {
     return (100 * (date - minx)) / (maxx - minx);
   };
@@ -75,17 +64,20 @@
           <path class="avg scatter" {d} />
         </Pancake.SvgScatterplot> -->
         {#if smoothingOn}
-        <SmoothSvgLine data={points} x={(d) => d.date} y={(d) => d.number} smoothing={smoothingAmount} let:d>
-          <path class="avg" {d} />
-        </SmoothSvgLine>
+          <SmoothSvgLine data={points} x={(d) => d.date} y={(d) => d.number} smoothing={smoothingAmount} let:d>
+            <path class="avg" {d} />
+          </SmoothSvgLine>
+          <SmoothSvgArea data={points} x={(d) => d.date} y={(d) => d.number} smoothing={smoothingAmount} let:d>
+            <path style="fill: lightblue; opacity: 0.3;" {d} />
+          </SmoothSvgArea>
         {:else}
-        <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
-          <path class="avg" {d} />
-        </Pancake.SvgLine>
+          <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+            <path class="avg" {d} />
+          </Pancake.SvgLine>
+          <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+            <path style="fill: lightblue; opacity: 0.3;" {d} />
+          </Pancake.SvgArea>
         {/if}
-        <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
-          <path style="fill: lightblue; opacity: 0.3;" {d} />
-        </Pancake.SvgArea>
 
         <!-- <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.trend} let:d>
           <path class="trend" {d} />
