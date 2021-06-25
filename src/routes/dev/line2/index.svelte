@@ -26,6 +26,7 @@
   let miny = +Infinity;
   let maxy = -Infinity;
   let highest;
+  let smoothingOn = true;
 
   for (let i = 0; i < points.length; i += 1) {
     const point = points[i];
@@ -72,11 +73,15 @@
         <!-- <Pancake.SvgScatterplot data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path class="avg scatter" {d} />
         </Pancake.SvgScatterplot> -->
-
+        {#if smoothingOn}
         <SmoothSvgLine data={points} x={(d) => d.date} y={(d) => d.number} smoothing="0.3" let:d>
           <path class="avg" {d} />
         </SmoothSvgLine>
-
+        {:else}
+        <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+          <path class="avg" {d} />
+        </Pancake.SvgLine>
+        {/if}
         <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path style="fill: lightblue; opacity: 0.3;" {d} />
         </Pancake.SvgArea>
@@ -130,6 +135,9 @@
       </Pancake.Quadtree>
     </Pancake.Chart>
   </div>
+</div>
+<div class="controls">
+  Smoothing: <input type="checkbox" bind:checked={smoothingOn}>
 </div>
 
 <style>
