@@ -64,6 +64,6 @@ export const conditionalRound = (number, decimals) => {
   if (number === Math.round(number)) {
     return number
   } else {
-    return number.toFixed(2)
+    return Number(number.toFixed(2))
   }
 }
