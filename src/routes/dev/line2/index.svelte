@@ -15,7 +15,7 @@
 
   // data.sort((a, b) => a.date - b.date);
 
-  const data = createTimeSeriesData(5, 0, 300)
+  const data = createTimeSeriesData(2, 0, 400)
   // console.log(data)
 
   const points = data.filter((d) => d.number);
@@ -49,7 +49,7 @@
 
 <div class="wrapper">
   <div class="chart">
-    <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy + 200}>
+    <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy + 50}>
       <Pancake.Grid horizontal count={5} let:value let:last>
         <div class="grid-line horizontal"><span>{value} {last ? 'y' : ''}</span></div>
       </Pancake.Grid>

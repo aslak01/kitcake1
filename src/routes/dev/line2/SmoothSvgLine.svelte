@@ -16,10 +16,7 @@
 
   const dataArray = data.map((d, i) => [conditionalRound($x_scale(x(d, i))), conditionalRound($y_scale(y(d, i)))])
 
-  
-
   $: d = svgPath(dataArray, bezierCommand, smoothing)
-
 
 	// $: d = 'M' + data
 	// 	.map((d, i) => `${ conditionalRound($x_scale(x(d, i))) }, ${conditionalRound($y_scale(y(d, i)))}`)
