@@ -56,3 +56,14 @@ export const formatTime = (date, locale) => {
   const options = { hour: '2-digit', minute: '2-digit' }
   return date.toLocaleTimeString(locale, options)
 }
+
+export const conditionalRound = (number, decimals) => {
+  if (!decimals) {
+    decimals = 2
+  }
+  if (number === Math.round(number)) {
+    return number
+  } else {
+    return number.toFixed(2)
+  }
+}
