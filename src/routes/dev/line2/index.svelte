@@ -1,6 +1,6 @@
 <script>
   import * as Pancake from '@sveltejs/pancake';
-  import SvgLine from './SvgLine.svelte'
+  import SmoothSvgLine from './SmoothSvgLine.svelte'
   // import tsv from './data.js';
   import { createTimeSeriesData, formatDate, formatTime } from './utils.js'
 
@@ -15,11 +15,11 @@
   // data.sort((a, b) => a.date - b.date);
 
   const data = createTimeSeriesData(5, 0, 300)
-  console.log(data)
+  // console.log(data)
 
   const points = data.filter((d) => d.number);
 
-  console.log(points);
+  // console.log(points);
 
   let minx = points[0].date;
   let maxx = points[points.length - 1].date;
@@ -58,7 +58,7 @@
 
 <div class="wrapper">
   <div class="chart">
-    <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy}>
+    <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy + 200}>
       <Pancake.Grid horizontal count={5} let:value let:last>
         <div class="grid-line horizontal"><span>{value} {last ? 'y' : ''}</span></div>
       </Pancake.Grid>
@@ -73,9 +73,9 @@
           <path class="avg scatter" {d} />
         </Pancake.SvgScatterplot> -->
 
-        <SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+        <SmoothSvgLine data={points} x={(d) => d.date} y={(d) => d.number} smoothing="0.3" let:d>
           <path class="avg" {d} />
-        </SvgLine>
+        </SmoothSvgLine>
 
         <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
           <path style="fill: lightblue; opacity: 0.3;" {d} />
@@ -108,7 +108,7 @@
       </Pancake.Point> -->
 
       <!-- annotate highest point -->
-      <Pancake.Point x={highest.date} y={highest.avg}>
+      <Pancake.Point x={highest.date} y={highest.number}>
         <div
           class="annotation"
           style="position: absolute; right: 0.5em; top: -0.5em; white-space: nowrap; line-height: 1; color: #666;"
@@ -122,7 +122,7 @@
           <Pancake.Point x={closest.date} y={closest.number} let:d>
             <div class="focus" />
             <div class="tooltip" style="transform: translate(-{pc(closest.date)}%,0)">
-              <strong>{closest.number} guests</strong>
+              <strong>{closest.number} y</strong>
               <span>{formatDate(closest.date)}, {formatTime(closest.date)}</span>
             </div>
           </Pancake.Point>
