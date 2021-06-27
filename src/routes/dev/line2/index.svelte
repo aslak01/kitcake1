@@ -1,9 +1,9 @@
 <script>
   import * as Pancake from '@sveltejs/pancake';
-  import SmoothSvgLine from './SmoothSvgLine.svelte'
-  import SmoothSvgArea from './SmoothSvgArea.svelte'
+  import SmoothSvgLine from './SmoothSvgLine.svelte';
+  import SmoothSvgArea from './SmoothSvgArea.svelte';
   // import tsv from './data.js';
-  import { createTimeSeriesData, formatDate, formatTime } from './utils.js'
+  import { createTimeSeriesData, formatDate, formatTime } from './utils.js';
 
   // const data = tsv.split('\n').map((str) => {
   //   let [id, date, number] = str.split('\t').map(parseFloat);
@@ -15,7 +15,7 @@
 
   // data.sort((a, b) => a.date - b.date);
 
-  const data = createTimeSeriesData(2, 0, 400)
+  const data = createTimeSeriesData(2, 0, 400);
   // console.log(data)
 
   const points = data.filter((d) => d.number);
@@ -64,10 +64,22 @@
           <path class="avg scatter" {d} />
         </Pancake.SvgScatterplot> -->
         {#if smoothingOn}
-          <SmoothSvgLine data={points} x={(d) => d.date} y={(d) => d.number} smoothing={smoothingAmount} let:d>
+          <SmoothSvgLine
+            data={points}
+            x={(d) => d.date}
+            y={(d) => d.number}
+            smoothing={smoothingAmount}
+            let:d
+          >
             <path class="avg" {d} />
           </SmoothSvgLine>
-          <SmoothSvgArea data={points} x={(d) => d.date} y={(d) => d.number} smoothing={smoothingAmount} let:d>
+          <SmoothSvgArea
+            data={points}
+            x={(d) => d.date}
+            y={(d) => d.number}
+            smoothing={smoothingAmount}
+            let:d
+          >
             <path style="fill: lightblue; opacity: 0.3;" {d} />
           </SmoothSvgArea>
         {:else}
@@ -130,9 +142,10 @@
   </div>
 </div>
 <div class="controls">
-  Smoothing: 
-  <input type="checkbox" bind:checked={smoothingOn}>
-  <input type="range" bind:value={smoothingAmount} min="0" max="0.9" step="0.01"> {smoothingAmount} 
+  Smoothing:
+  <input type="checkbox" bind:checked={smoothingOn} />
+  <input type="range" bind:value={smoothingAmount} min="0" max="0.9" step="0.01" />
+  {smoothingAmount}
 </div>
 
 <style>

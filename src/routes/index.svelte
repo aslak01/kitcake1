@@ -22,8 +22,8 @@
 
   <p>
     This is an example of combining <a href="https://kit.svelte.dev">SvelteKit</a> with the
-    <a href="https://pancake-charts.surge.sh/">Pancake</a> library, aiming to provide more 
-    some community sourced documentation and examples of what the library can do.
+    <a href="https://pancake-charts.surge.sh/">Pancake</a> library, aiming to provide more some community
+    sourced documentation and examples of what the library can do.
   </p>
 </div>
 
