@@ -40,7 +40,9 @@
     console.log(required.length);
     return required;
   };
-
+  const formatBase = (value) => {
+    return yootils.commas(value.toFixed(2));
+  };
   //$: console.log(w);
   $: count = w <= 650 ? 40 : w <= 800 ? 60 : w <= 1000 ? 125 : w <= 1500 ? 150 : 175;
   $: ema12 = Ema(
@@ -137,31 +139,27 @@
             <div
               class="box"
               style="background-color:#DF3604"
-              title={`Open: $${yootils.commas(d.open.toFixed(2))}\nClose: $${yootils.commas(
-                d.close.toFixed(2)
-              )}\nHigh: $${yootils.commas(d.high.toFixed(2))}\nLow: $${yootils.commas(
-                d.low.toFixed(2)
-              )}`}
+              title={`Open: $${formatBase(d.open)}\nClose: $${formatBase(
+                d.close
+              )}\nHigh: $${formatBase(d.high)}\nLow: $${formatBase(d.low)}`}
               use:tooltip
             />
           </Pancake.Box>
-          <Pancake.Box
-            x1={d.openTimeInMillis + d.sizeInMillis / 2 - 0.075 * d.sizeInMillis}
-            x2={d.openTimeInMillis + d.sizeInMillis / 2 + 0.075 * d.sizeInMillis}
-            y1={d.high}
-            y2={d.low}
-          >
-            <div
-              class="tail"
-              style="background-color:#DF3604"
-              title={`Open: $${yootils.commas(d.open.toFixed(2))}\nClose: $${yootils.commas(
-                d.close.toFixed(2)
-              )}\nHigh: $${yootils.commas(d.high.toFixed(2))}\nLow: $${yootils.commas(
-                d.low.toFixed(2)
-              )}`}
-              use:tooltip
-            />
-          </Pancake.Box>
+          <div style="pointer-events:none">
+            <Pancake.Svg>
+              <Pancake.SvgLine
+                data={[
+                  { og: d, locY: d.low },
+                  { og: d, locY: d.high }
+                ]}
+                x={(d) => d.og.openTimeInMillis + d.og.sizeInMillis / 2}
+                y={(d) => d.locY}
+                let:d
+              >
+                <path class="trend" {d} style="stroke:#DF3604" />
+              </Pancake.SvgLine>
+            </Pancake.Svg>
+          </div>
         {:else if d.close > d.open}
           <Pancake.Box
             x1={d.openTimeInMillis}
@@ -172,31 +170,27 @@
             <div
               class="box"
               style="background-color:#22c55e"
-              title={`Open: $${yootils.commas(d.open.toFixed(2))}\nClose: $${yootils.commas(
-                d.close.toFixed(2)
-              )}\nHigh: $${yootils.commas(d.high.toFixed(2))}\nLow: $${yootils.commas(
-                d.low.toFixed(2)
-              )}`}
+              title={`Open: $${formatBase(d.open)}\nClose: $${formatBase(
+                d.close
+              )}\nHigh: $${formatBase(d.high)}\nLow: $${formatBase(d.low)}`}
               use:tooltip
             />
           </Pancake.Box>
-          <Pancake.Box
-            x1={d.openTimeInMillis + d.sizeInMillis / 2 - 0.075 * d.sizeInMillis}
-            x2={d.openTimeInMillis + d.sizeInMillis / 2 + 0.075 * d.sizeInMillis}
-            y1={d.high}
-            y2={d.low}
-          >
-            <div
-              class="tail"
-              style="background-color:#22c55e"
-              title={`Open: $${yootils.commas(d.open.toFixed(2))}\nClose: $${yootils.commas(
-                d.close.toFixed(2)
-              )}\nHigh: $${yootils.commas(d.high.toFixed(2))}\nLow: $${yootils.commas(
-                d.low.toFixed(2)
-              )}`}
-              use:tooltip
-            />
-          </Pancake.Box>
+          <div style="pointer-events:none">
+            <Pancake.Svg>
+              <Pancake.SvgLine
+                data={[
+                  { og: d, locY: d.low },
+                  { og: d, locY: d.high }
+                ]}
+                x={(d) => d.og.openTimeInMillis + d.og.sizeInMillis / 2}
+                y={(d) => d.locY}
+                let:d
+              >
+                <path class="trend" {d} style="stroke:#22c55e" />
+              </Pancake.SvgLine>
+            </Pancake.Svg>
+          </div>
         {:else}
           <Pancake.Box
             x1={d.openTimeInMillis}
@@ -207,57 +201,57 @@
             <div
               class="box"
               style="background-color:{determineColor(i)}"
-              title={`Open: $${yootils.commas(d.open.toFixed(2))}\nClose: $${yootils.commas(
-                d.close.toFixed(2)
-              )}\nHigh: $${yootils.commas(d.high.toFixed(2))}\nLow: $${yootils.commas(
-                d.low.toFixed(2)
-              )}`}
+              title={`Open: $${formatBase(d.open)}\nClose: $${formatBase(
+                d.close
+              )}\nHigh: $${formatBase(d.high)}\nLow: $${formatBase(d.low)}`}
               use:tooltip
             />
           </Pancake.Box>
-          <Pancake.Box
-            x1={d.openTimeInMillis + d.sizeInMillis / 2 - 0.075 * d.sizeInMillis}
-            x2={d.openTimeInMillis + d.sizeInMillis / 2 + 0.075 * d.sizeInMillis}
-            y1={d.high}
-            y2={d.low}
-          >
-            <div
-              class="tail"
-              style="background-color:{determineColor(i)}}"
-              title={`Open: $${yootils.commas(d.open.toFixed(2))}\nClose: $${yootils.commas(
-                d.close.toFixed(2)
-              )}\nHigh: $${yootils.commas(d.high.toFixed(2))}\nLow: $${yootils.commas(
-                d.low.toFixed(2)
-              )}`}
-              use:tooltip
-            />
-          </Pancake.Box>
+          <div style="pointer-events:none">
+            <Pancake.Svg>
+              <Pancake.SvgLine
+                data={[
+                  { og: d, locY: d.low },
+                  { og: d, locY: d.high }
+                ]}
+                x={(d) => d.og.openTimeInMillis + d.og.sizeInMillis / 2}
+                y={(d) => d.locY}
+                let:d
+              >
+                <path class="trend" {d} style="stroke:{determineColor(i)}" />
+              </Pancake.SvgLine>
+            </Pancake.Svg>
+          </div>
         {/if}
       {/if}
     {/each}
     {#if ema12Enabled}
-      <Pancake.Svg>
-        <Pancake.SvgLine
-          data={testData}
-          x={(d) => d.openTimeInMillis + d.sizeInMillis / 2}
-          y={(d) => d.ema12}
-          let:d
-        >
-          <path class="ema12" {d} />
-        </Pancake.SvgLine>
-      </Pancake.Svg>
+      <div style="pointer-events:none">
+        <Pancake.Svg>
+          <Pancake.SvgLine
+            data={testData}
+            x={(d) => d.openTimeInMillis + d.sizeInMillis / 2}
+            y={(d) => d.ema12}
+            let:d
+          >
+            <path class="ema12" {d} />
+          </Pancake.SvgLine>
+        </Pancake.Svg>
+      </div>
     {/if}
     {#if ema26Enabled}
-      <Pancake.Svg>
-        <Pancake.SvgLine
-          data={testData}
-          x={(d) => d.openTimeInMillis + d.sizeInMillis / 2}
-          y={(d) => d.ema26}
-          let:d
-        >
-          <path class="ema26" {d} />
-        </Pancake.SvgLine>
-      </Pancake.Svg>
+      <div style="pointer-events:none">
+        <Pancake.Svg>
+          <Pancake.SvgLine
+            data={testData}
+            x={(d) => d.openTimeInMillis + d.sizeInMillis / 2}
+            y={(d) => d.ema26}
+            let:d
+          >
+            <path class="ema26" {d} />
+          </Pancake.SvgLine>
+        </Pancake.Svg>
+      </div>
     {/if}
   </Pancake.Chart>
 </div>
@@ -375,12 +369,6 @@
     position: absolute;
     left: 1px;
     width: calc(100% - 2px);
-    height: 100%;
-  }
-
-  .tail {
-    position: absolute;
-    width: 100%;
     height: 100%;
   }
 </style>
