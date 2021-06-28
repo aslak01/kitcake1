@@ -3,7 +3,8 @@
   import * as yootils from 'yootils';
   import { tooltip } from '$lib/crypto/tooltip';
   import dayjs from 'dayjs';
-  import { Ema } from '$lib/crypto/utils';
+  import { Ema } from '$lib/crypto/ema';
+  import { genPolygon, filterUnwanted, formatBase } from '$lib/crypto/utils';
   export let cryptoData;
   let tradingPair = `ETH-USD`;
   const candleGranularity = [
@@ -22,8 +23,20 @@
   let granularity = 900;
   let { data, pairs } = cryptoData;
 
-  const determineColor = (i) => {
-    if (i == 0) {
+  /* Fetches new data on:blur when user selects tradingPair || granularity */
+  async function loadData() {
+    let res = await fetch(`api/coinbase-pro/${tradingPair}.json?granularity=${granularity}`);
+    let tempData = await res.json();
+    tempGranularity = granularity;
+    data = filterUnwanted(tempData.data);
+  }
+
+  const determineColor = (d, i) => {
+    if (d.close > d.open) {
+      return '#22c55e';
+    } else if (d.open > d.close) {
+      return '#DF3604';
+    } else if (i == 0) {
       return '#22c55e';
     } else if (testData[i - 1].close > testData[i - 1].open) {
       return '#22c55e';
@@ -33,41 +46,37 @@
       return determineColor(i - 1);
     }
   };
-  const filterUnwanted = (arr) => {
-    const required = arr.filter((el) => {
-      return el && el.open && el.close && el.low && el.high;
-    });
-    console.log(required.length);
-    return required;
-  };
-  const formatBase = (value) => {
-    return yootils.commas(value.toFixed(2));
-  };
-  //$: console.log(w);
+
+  /* Reactive portion of code */
   $: count = w <= 650 ? 40 : w <= 800 ? 60 : w <= 1000 ? 125 : w <= 1500 ? 150 : 175;
+
   $: ema12 = Ema(
     data.map((dat) => dat.close),
     12
   ).slice(data.length - count, data.length - 1);
+
   $: ema26 = Ema(
     data.map((dat) => dat.close),
     26
   ).slice(data.length - count, data.length - 1);
+
   $: testData = data.slice(data.length - count, data.length - 1);
+
   $: testData.forEach((dat, i) => {
     dat.ema12 = ema12[i];
     dat.ema26 = ema26[i];
   });
-  $: console.log(testData);
+
   $: minX = Math.min.apply(
     null,
     testData.map((item) => item.openTimeInMillis)
   );
-  $: console.log(testData[0]);
+
   $: maxX = Math.max.apply(
     null,
     testData.map((item) => item.openTimeInMillis)
   );
+
   $: minY = Math.min.apply(
     null,
     testData.map((item) => item.low)
@@ -77,12 +86,6 @@
     null,
     testData.map((item) => item.high)
   );
-  async function loadData() {
-    let res = await fetch(`api/coinbase-pro/${tradingPair}.json?granularity=${granularity}`);
-    let tempData = await res.json();
-    tempGranularity = granularity;
-    data = filterUnwanted(tempData.data);
-  }
 </script>
 
 <div class="controlPanel">
@@ -127,104 +130,21 @@
       <span class="x-label">{dayjs(value).format('HH:mm')}</span>
     </Pancake.Grid>
 
-    {#each testData as d, i}
-      {#if d && d.open && d.close && d.low && d.high && d.openTimeInMillis}
-        {#if d.open > d.close}
-          <Pancake.Box
-            x1={d.openTimeInMillis}
-            x2={d.openTimeInMillis + d.sizeInMillis}
-            y1={d.open}
-            y2={d.close}
-          >
-            <div
-              class="box"
-              style="background-color:#DF3604"
-              title={`Open: $${formatBase(d.open)}\nClose: $${formatBase(
-                d.close
-              )}\nHigh: $${formatBase(d.high)}\nLow: $${formatBase(d.low)}`}
-              use:tooltip
-            />
-          </Pancake.Box>
-          <div style="pointer-events:none">
-            <Pancake.Svg>
-              <Pancake.SvgLine
-                data={[
-                  { og: d, locY: d.low },
-                  { og: d, locY: d.high }
-                ]}
-                x={(d) => d.og.openTimeInMillis + d.og.sizeInMillis / 2}
-                y={(d) => d.locY}
-                let:d
-              >
-                <path class="trend" {d} style="stroke:#DF3604" />
-              </Pancake.SvgLine>
-            </Pancake.Svg>
-          </div>
-        {:else if d.close > d.open}
-          <Pancake.Box
-            x1={d.openTimeInMillis}
-            x2={d.openTimeInMillis + d.sizeInMillis}
-            y1={d.close}
-            y2={d.open}
-          >
-            <div
-              class="box"
-              style="background-color:#22c55e"
-              title={`Open: $${formatBase(d.open)}\nClose: $${formatBase(
-                d.close
-              )}\nHigh: $${formatBase(d.high)}\nLow: $${formatBase(d.low)}`}
-              use:tooltip
-            />
-          </Pancake.Box>
-          <div style="pointer-events:none">
-            <Pancake.Svg>
-              <Pancake.SvgLine
-                data={[
-                  { og: d, locY: d.low },
-                  { og: d, locY: d.high }
-                ]}
-                x={(d) => d.og.openTimeInMillis + d.og.sizeInMillis / 2}
-                y={(d) => d.locY}
-                let:d
-              >
-                <path class="trend" {d} style="stroke:#22c55e" />
-              </Pancake.SvgLine>
-            </Pancake.Svg>
-          </div>
-        {:else}
-          <Pancake.Box
-            x1={d.openTimeInMillis}
-            x2={d.openTimeInMillis + d.sizeInMillis}
-            y1={d.open}
-            y2={d.close}
-          >
-            <div
-              class="box"
-              style="background-color:{determineColor(i)}"
-              title={`Open: $${formatBase(d.open)}\nClose: $${formatBase(
-                d.close
-              )}\nHigh: $${formatBase(d.high)}\nLow: $${formatBase(d.low)}`}
-              use:tooltip
-            />
-          </Pancake.Box>
-          <div style="pointer-events:none">
-            <Pancake.Svg>
-              <Pancake.SvgLine
-                data={[
-                  { og: d, locY: d.low },
-                  { og: d, locY: d.high }
-                ]}
-                x={(d) => d.og.openTimeInMillis + d.og.sizeInMillis / 2}
-                y={(d) => d.locY}
-                let:d
-              >
-                <path class="trend" {d} style="stroke:{determineColor(i)}" />
-              </Pancake.SvgLine>
-            </Pancake.Svg>
-          </div>
-        {/if}
-      {/if}
+    {#each testData as dat, i}
+      <Pancake.Svg>
+        <Pancake.SvgPolygon data={genPolygon(dat)} let:d>
+          <path
+            {d}
+            style="fill:{determineColor(dat, i)}"
+            title={`Open: $${formatBase(dat.open)}\nClose: $${formatBase(
+              dat.close
+            )}\nHigh: $${formatBase(dat.high)}\nLow: $${formatBase(dat.low)}`}
+            use:tooltip
+          />
+        </Pancake.SvgPolygon>
+      </Pancake.Svg>
     {/each}
+
     {#if ema12Enabled}
       <div style="pointer-events:none">
         <Pancake.Svg>
@@ -307,8 +227,7 @@
   }
 
   .chart {
-    height: 500px;
-    padding: 3em 0 2em 3em;
+    height: 600px;
     margin: 0 0 36px 0;
   }
 
@@ -334,7 +253,7 @@
   }
 
   .grid-line.horizontal {
-    width: calc(100% + 3em);
+    width: calc(100% + 1.5em);
     left: -1.5em;
     border: 1px dashed rgba(204, 204, 204, 0.5);
   }
@@ -363,12 +282,5 @@
     font-size: 14px;
     color: #999;
     text-align: center;
-  }
-
-  .box {
-    position: absolute;
-    left: 1px;
-    width: calc(100% - 2px);
-    height: 100%;
   }
 </style>

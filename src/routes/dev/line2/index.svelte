@@ -142,9 +142,10 @@
   </div>
 </div>
 <div class="controls">
-  Smoothing: 
-  <input type="checkbox" bind:checked={smoothingOn}>
-  <input type="range" bind:value={smoothingAmount} min="0" max="0.5" step="0.01"> {smoothingAmount} 
+  Smoothing:
+  <input type="checkbox" bind:checked={smoothingOn} />
+  <input type="range" bind:value={smoothingAmount} min="0" max="0.5" step="0.01" />
+  {smoothingAmount}
 </div>
 
 <style>
