@@ -129,9 +129,8 @@
       <div class="grid-line vertical" />
       <span class="x-label">{dayjs(value).format('HH:mm')}</span>
     </Pancake.Grid>
-
-    {#each testData as dat, i}
-      <Pancake.Svg>
+    <Pancake.Svg>
+      {#each testData as dat, i}
         <Pancake.SvgPolygon data={genPolygon(dat)} let:d>
           <path
             {d}
@@ -142,9 +141,8 @@
             use:tooltip
           />
         </Pancake.SvgPolygon>
-      </Pancake.Svg>
-    {/each}
-
+      {/each}
+    </Pancake.Svg>
     {#if ema12Enabled}
       <div style="pointer-events:none">
         <Pancake.Svg>
