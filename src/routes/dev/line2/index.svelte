@@ -15,10 +15,11 @@
 
   // data.sort((a, b) => a.date - b.date);
 
-  const data = createTimeSeriesData(2, 0, 400);
+  let points = createTimeSeriesData(2, 0, 400);
+  $: points
   // console.log(data)
-
-  const points = data.filter((d) => d.number);
+  // let points
+  // $: points = data.filter((d) => d.number);
 
   // console.log(points);
 
@@ -29,6 +30,10 @@
   let highest;
   let smoothingOn = true;
   let smoothingAmount = 0.3;
+
+  const changePoints = () => {
+    points = createTimeSeriesData(2, 0, 400)
+  }
 
   for (let i = 0; i < points.length; i += 1) {
     const point = points[i];
@@ -142,6 +147,7 @@
   </div>
 </div>
 <div class="controls">
+  <button on:click="{ changePoints }">New data</button>
   Smoothing:
   <input type="checkbox" bind:checked={smoothingOn} />
   <input type="range" bind:value={smoothingAmount} min="0" max="0.5" step="0.01" />
