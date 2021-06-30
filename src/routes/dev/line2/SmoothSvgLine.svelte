@@ -12,9 +12,9 @@
   export let data;
   export let x = default_x;
   export let y = default_y;
-  export let smoothing = 0.4;
+  export let smoothing = 0.3;
 
-  const dataArray = data.map((d, i) => [
+  $: dataArray = data.map((d, i) => [
     conditionalRound($x_scale(x(d, i))),
     conditionalRound($y_scale(y(d, i)))
   ]);
