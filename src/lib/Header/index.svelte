@@ -1,6 +1,6 @@
 <script>
-  import { page } from '$app/stores';
-  import logo from './svelte-logo.svg';
+  import { page } from '$app/stores'
+  import logo from './svelte-logo.svg'
 </script>
 
 <header>
@@ -15,11 +15,13 @@
       <path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
     </svg>
     <ul>
-      <li class:active={$page.path === '/'}><a sveltekit:prefetch href="/">Pancake Kit</a></li>
-      <li class:active={$page.path === '/examples'}>
+      <li class:active={$page.url.pathname === '/'}>
+        <a sveltekit:prefetch href="/">Pancake Kit</a>
+      </li>
+      <li class:active={$page.url.pathname === '/examples'}>
         <a sveltekit:prefetch href="/examples">Examples</a>
       </li>
-      <li class:active={$page.path === '/dev'}>
+      <li class:active={$page.url.pathname === '/dev'}>
         <a sveltekit:prefetch href="/dev">Dev</a>
       </li>
     </ul>
