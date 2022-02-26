@@ -24,7 +24,7 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.3",
     "@lukeed/uuid": "^2.0.0",
-    "@sveltejs/pancake": "github:cryptodeal/pancake#plotNull",
+    "@sveltejs/pancake": "^0.0.18",
     "cookie": "^0.4.2",
     "yootils": "github:Rich-Harris/yootils"
   },
