@@ -1,18 +1,18 @@
 <script>
-  import SmoothSvgPolygon from './SmoothSvgPolygon.svelte';
-  import { default_x, default_y } from '@sveltejs/pancake/utils/accessors.mjs';
+  import SmoothSvgPolygon from './SmoothSvgPolygon.svelte'
+  import { default_x, default_y } from '@sveltejs/pancake/utils/accessors.mjs'
 
-  export let data;
-  export let floor = 0;
-  export let x = default_x;
-  export let y = default_y;
-  export let smoothing = 0.3;
+  export let data
+  export let floor = 0
+  export let x = default_x
+  export let y = default_y
+  export let smoothing = 0.3
 
   $: points = [
     { x: x(data[0], 0), y: floor },
     ...data.map((d, i) => ({ x: x(d, i), y: y(d, i) })),
     { x: x(data[data.length - 1], data.length - 1), y: floor }
-  ];
+  ]
 </script>
 
 <SmoothSvgPolygon data={points} {smoothing} let:d>

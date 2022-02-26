@@ -1,7 +1,7 @@
 <script>
-  import * as Pancake from '@sveltejs/pancake';
+  import * as Pancake from '@sveltejs/pancake'
 
-  export let node;
+  export let node
 </script>
 
 <Pancake.Box x1={node.x0} x2={node.x1} y1={node.y1} y2={node.y0}>

@@ -1,18 +1,18 @@
 <script>
   // Source: https://github.com/Rich-Harris/pancake/issues/1
   // https://svelte.dev/repl/18eddebf997f4f3f8da97484a3618075?version=3.18.1
-  import * as Pancake from '@sveltejs/pancake';
-  import data from './data.js';
+  import * as Pancake from '@sveltejs/pancake'
+  import data from './data.js'
 
-  const fruits = ['apples', 'bananas', 'cherries', 'dates'];
+  const fruits = ['apples', 'bananas', 'cherries', 'dates']
 
-  let x1 = Infinity;
-  let x2 = -Infinity;
+  let x1 = Infinity
+  let x2 = -Infinity
 
   data.forEach((d) => {
-    if (d.month < x1) x1 = d.month;
-    if (d.month > x2) x2 = d.month;
-  });
+    if (d.month < x1) x1 = d.month
+    if (d.month > x2) x2 = d.month
+  })
 
   const months = [
     'Jan.',
@@ -27,25 +27,28 @@
     'Oct.',
     'Nov.',
     'Dec.'
-  ];
+  ]
 
   const format_x = (x) => {
-    const d = new Date(x);
-    const month = months[d.getMonth()];
+    const d = new Date(x)
+    const month = months[d.getMonth()]
 
-    return `${month} ${d.getDate()}`;
-  };
+    return `${month} ${d.getDate()}`
+  }
 
-  const colors = ['#ff00cc', '#ff7ac7', '#ffb3c0', '#ffe4b8'];
+  const colors = ['#ff00cc', '#ff7ac7', '#ffb3c0', '#ffe4b8']
 
-  const stacks = Pancake.stacks(data, fruits, 'month');
+  const stacks = Pancake.stacks(data, fruits, 'month')
 
-  const max = stacks.reduce((max, stack) => Math.max(max, ...stack.values.map((v) => v.end)), 0);
+  const max = stacks.reduce(
+    (max, stack) => Math.max(max, ...stack.values.map((v) => v.end)),
+    0
+  )
 
   const area = (values) =>
     values
       .map((d) => ({ x: d.i, y: d.end }))
-      .concat(values.map((d) => ({ x: d.i, y: d.start })).reverse());
+      .concat(values.map((d) => ({ x: d.i, y: d.start })).reverse())
 </script>
 
 <div class="center">

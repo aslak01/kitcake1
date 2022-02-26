@@ -20,4 +20,4 @@ export default [
   { shape: 'teardrop', y2001: 38, y2002: 44 },
   { shape: 'cone', y2001: 25, y2002: 21 },
   { shape: 'cross', y2001: 9, y2002: 12 }
-];
+]

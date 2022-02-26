@@ -13,19 +13,19 @@
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "d3-hierarchy": "^2.0.0",
-    "dayjs": "^1.10.5",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-svelte3": "^3.2.0",
+    "dayjs": "^1.10.7",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-svelte3": "^3.4.1",
     "prettier": "2.3.2",
-    "prettier-plugin-svelte": "^2.3.1",
-    "svelte": "^3.38.3"
+    "prettier-plugin-svelte": "^2.6.0",
+    "svelte": "^3.46.4"
   },
   "dependencies": {
-    "@fontsource/fira-mono": "^4.4.5",
+    "@fontsource/fira-mono": "^4.5.3",
     "@lukeed/uuid": "^2.0.0",
     "@sveltejs/pancake": "github:cryptodeal/pancake#plotNull",
-    "cookie": "^0.4.1",
+    "cookie": "^0.4.2",
     "yootils": "github:Rich-Harris/yootils"
   },
   "type": "module"

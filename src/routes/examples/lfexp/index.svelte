@@ -1,23 +1,25 @@
 <script>
-  import * as Pancake from '@sveltejs/pancake';
-  import { countries, years } from './data.js';
+  import * as Pancake from '@sveltejs/pancake'
+  import { countries, years } from './data.js'
 
-  let x1 = +Infinity;
-  let x2 = -Infinity;
-  let y1 = +Infinity;
-  let y2 = -Infinity;
+  let x1 = +Infinity
+  let x2 = -Infinity
+  let y1 = +Infinity
+  let y2 = -Infinity
   countries.forEach((country) => {
     country.data.forEach((d) => {
-      if (d.x < x1) x1 = d.x;
-      if (d.x > x2) x2 = d.x;
-      if (d.y < y1) y1 = d.y;
-      if (d.y > y2) y2 = d.y;
-    });
-  });
-  let closest;
-  let filter = '';
-  $: regex = filter ? new RegExp(filter, 'i') : null;
-  $: filtered = regex ? countries.filter((country) => regex.test(country.name)) : countries;
+      if (d.x < x1) x1 = d.x
+      if (d.x > x2) x2 = d.x
+      if (d.y < y1) y1 = d.y
+      if (d.y > y2) y2 = d.y
+    })
+  })
+  let closest
+  let filter = ''
+  $: regex = filter ? new RegExp(filter, 'i') : null
+  $: filtered = regex
+    ? countries.filter((country) => regex.test(country.name))
+    : countries
   $: points = filtered.reduce((points, country) => {
     return points.concat(
       country.data.map((d) => ({
@@ -25,13 +27,17 @@
         y: d.y,
         country
       }))
-    );
-  }, []);
+    )
+  }, [])
 </script>
 
 <div class="center">
   <h1>Life expectancy chart</h1>
-  <h3>From <a href="https://pancake-charts.surge.sh/">Rich Harris' examples page</a></h3>
+  <h3>
+    From <a href="https://pancake-charts.surge.sh/"
+      >Rich Harris' examples page</a
+    >
+  </h3>
 </div>
 
 <input placeholder="Type to filter" bind:value={filter} />
@@ -67,7 +73,8 @@
         <span class="annotation-point" />
         <div
           class="annotation"
-          style="transform: translate(-{100 * ((closest.x - x1) / (x2 - x1))}%,0)"
+          style="transform: translate(-{100 *
+            ((closest.x - x1) / (x2 - x1))}%,0)"
         >
           <strong>{closest.country.name}</strong>
           <span>{closest.x}: {closest.y} years</span>
@@ -80,10 +87,13 @@
 </div>
 
 <p>
-  Source: <a href="https://data.worldbank.org/indicator/SP.DYN.LE00.IN?end=2017&start=1960"
+  Source: <a
+    href="https://data.worldbank.org/indicator/SP.DYN.LE00.IN?end=2017&start=1960"
     >The World Bank</a
   >. Based on
-  <a href="http://projects.flowingdata.com/life-expectancy/">Life Expectancy by Nathan Yau</a>.
+  <a href="http://projects.flowingdata.com/life-expectancy/"
+    >Life Expectancy by Nathan Yau</a
+  >.
 </p>
 
 <style>

@@ -1,15 +1,18 @@
 <script>
   // Source: https://github.com/Rich-Harris/pancake/issues/1
   // https://svelte.dev/repl/f5b004b591a249d0827dc32d69d77211?version=3.18.1
-  import * as Pancake from '@sveltejs/pancake';
-  import points from './points.js';
+  import * as Pancake from '@sveltejs/pancake'
+  import points from './points.js'
 
-  const fruits = ['apples', 'bananas', 'cherries', 'dates'];
-  const colors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5'];
+  const fruits = ['apples', 'bananas', 'cherries', 'dates']
+  const colors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5']
 
-  const stacks = Pancake.stacks(points, fruits, 'year');
+  const stacks = Pancake.stacks(points, fruits, 'year')
 
-  const max = stacks.reduce((max, stack) => Math.max(max, ...stack.values.map((v) => v.end)), 0);
+  const max = stacks.reduce(
+    (max, stack) => Math.max(max, ...stack.values.map((v) => v.end)),
+    0
+  )
 </script>
 
 <div class="center">

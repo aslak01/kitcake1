@@ -1,17 +1,17 @@
 <script context="module">
-  const modules = import.meta.globEager('./*/index.svelte');
-  export const charts = Object.values(modules).map((mod) => ({ Chart: mod.default }));
+  const modules = import.meta.globEager('./*/index.svelte')
+  export const charts = Object.values(modules).map((mod) => ({ Chart: mod.default }))
 </script>
 
 <script>
   function nextChart() {
-    number + 1 < charts.length ? (number += 1) : (number = 0);
+    number + 1 < charts.length ? (number += 1) : (number = 0)
   }
   function prevChart() {
-    number - 1 >= 0 ? (number -= 1) : (number = charts.length - 1);
+    number - 1 >= 0 ? (number -= 1) : (number = charts.length - 1)
   }
-  let number;
-  $: number = 0;
+  let number
+  $: number = 0
 </script>
 
 <svelte:head>

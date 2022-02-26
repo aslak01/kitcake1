@@ -1,62 +1,62 @@
 <script>
-  import * as Pancake from '@sveltejs/pancake';
-  import * as d3 from 'd3-hierarchy';
-  import { tweened } from 'svelte/motion';
-  import * as eases from 'svelte/easing';
-  import { fade } from 'svelte/transition';
-  import * as yootils from 'yootils';
-  import Treemap from './Treemap.svelte';
-  import data from './data.js';
+  import * as Pancake from '@sveltejs/pancake'
+  import * as d3 from 'd3-hierarchy'
+  import { tweened } from 'svelte/motion'
+  import * as eases from 'svelte/easing'
+  import { fade } from 'svelte/transition'
+  import * as yootils from 'yootils'
+  import Treemap from './Treemap.svelte'
+  import data from './data.js'
 
-  const treemap = d3.treemap();
+  const treemap = d3.treemap()
 
   const hierarchy = d3
     .hierarchy(data)
     .sum((d) => d.value)
-    .sort((a, b) => b.value - a.value);
+    .sort((a, b) => b.value - a.value)
 
-  const root = treemap(hierarchy);
+  const root = treemap(hierarchy)
 
-  let selected = root;
+  let selected = root
 
   const select = (node) => {
     while (node.parent && node.parent !== selected) {
-      node = node.parent;
+      node = node.parent
     }
 
-    if (node && node.children) selected = node;
-  };
+    if (node && node.children) selected = node
+  }
 
   const breadcrumbs = (node) => {
-    const crumbs = [];
+    const crumbs = []
     while (node) {
-      crumbs.unshift(node.data.name);
-      node = node.parent;
+      crumbs.unshift(node.data.name)
+      node = node.parent
     }
 
-    return crumbs.join('/');
-  };
+    return crumbs.join('/')
+  }
 
   const extents = tweened(undefined, {
     easing: eases.cubicOut,
     duration: 600
-  });
+  })
 
   const is_visible = (a, b) => {
     while (b) {
-      if (a.parent === b) return true;
-      b = b.parent;
+      if (a.parent === b) return true
+      b = b.parent
     }
 
-    return false;
-  };
+    return false
+  }
 
   $: $extents = {
     x1: selected.x0,
     x2: selected.x1,
     y1: selected.y1,
     y2: selected.y0
-  };
+  }
 </script>
 
 <button
@@ -68,7 +68,12 @@
 </button>
 
 <div class="chart">
-  <Pancake.Chart x1={$extents.x1} x2={$extents.x2} y1={$extents.y1} y2={$extents.y2}>
+  <Pancake.Chart
+    x1={$extents.x1}
+    x2={$extents.x2}
+    y1={$extents.y1}
+    y2={$extents.y2}
+  >
     <Treemap {root} let:node>
       {#if is_visible(node, selected)}
         <div

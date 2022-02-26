@@ -1,9 +1,9 @@
 <script>
-  import * as Pancake from '@sveltejs/pancake';
-  import SmoothSvgLine from './SmoothSvgLine.svelte';
-  import SmoothSvgArea from './SmoothSvgArea.svelte';
+  import * as Pancake from '@sveltejs/pancake'
+  import SmoothSvgLine from './SmoothSvgLine.svelte'
+  import SmoothSvgArea from './SmoothSvgArea.svelte'
   // import tsv from './data.js';
-  import { createTimeSeriesData, formatDate, formatTime } from './utils.js';
+  import { createTimeSeriesData, formatDate, formatTime } from './utils.js'
 
   // const data = tsv.split('\n').map((str) => {
   //   let [id, date, number] = str.split('\t').map(parseFloat);
@@ -15,7 +15,7 @@
 
   // data.sort((a, b) => a.date - b.date);
 
-  let points = createTimeSeriesData(2, 0, 400);
+  let points = createTimeSeriesData(2, 0, 400)
   $: points
   // console.log(data)
   // let points
@@ -23,40 +23,42 @@
 
   // console.log(points);
 
-  let minx = points[0].date;
-  let maxx = points[points.length - 1].date;
-  let miny = +Infinity;
-  let maxy = -Infinity;
-  let highest;
-  let smoothingOn = true;
-  let smoothingAmount = 0.3;
+  let minx = points[0].date
+  let maxx = points[points.length - 1].date
+  let miny = +Infinity
+  let maxy = -Infinity
+  let highest
+  let smoothingOn = true
+  let smoothingAmount = 0.3
 
   const changePoints = () => {
     points = createTimeSeriesData(2, 0, 400)
   }
 
   for (let i = 0; i < points.length; i += 1) {
-    const point = points[i];
+    const point = points[i]
 
     if (point.number < miny) {
-      miny = point.number;
+      miny = point.number
     }
 
     if (point.number > maxy) {
-      maxy = point.number;
-      highest = point;
+      maxy = point.number
+      highest = point
     }
   }
   const pc = (date) => {
-    return (100 * (date - minx)) / (maxx - minx);
-  };
+    return (100 * (date - minx)) / (maxx - minx)
+  }
 </script>
 
 <div class="wrapper">
   <div class="chart">
     <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy + 50}>
       <Pancake.Grid horizontal count={5} let:value let:last>
-        <div class="grid-line horizontal"><span>{value} {last ? 'y' : ''}</span></div>
+        <div class="grid-line horizontal">
+          <span>{value} {last ? 'y' : ''}</span>
+        </div>
       </Pancake.Grid>
 
       <Pancake.Grid vertical count={8} let:value>
@@ -88,10 +90,20 @@
             <path style="fill: lightblue; opacity: 0.3;" {d} />
           </SmoothSvgArea>
         {:else}
-          <Pancake.SvgLine data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+          <Pancake.SvgLine
+            data={points}
+            x={(d) => d.date}
+            y={(d) => d.number}
+            let:d
+          >
             <path class="avg" {d} />
           </Pancake.SvgLine>
-          <Pancake.SvgArea data={points} x={(d) => d.date} y={(d) => d.number} let:d>
+          <Pancake.SvgArea
+            data={points}
+            x={(d) => d.date}
+            y={(d) => d.number}
+            let:d
+          >
             <path style="fill: lightblue; opacity: 0.3;" {d} />
           </Pancake.SvgArea>
         {/if}
@@ -132,13 +144,22 @@
         </div>
       </Pancake.Point>
 
-      <Pancake.Quadtree data={points} x={(d) => d.date} y={(d) => d.number} let:closest>
+      <Pancake.Quadtree
+        data={points}
+        x={(d) => d.date}
+        y={(d) => d.number}
+        let:closest
+      >
         {#if closest}
           <Pancake.Point x={closest.date} y={closest.number} let:d>
             <div class="focus" />
-            <div class="tooltip" style="transform: translate(-{pc(closest.date)}%,0)">
+            <div
+              class="tooltip"
+              style="transform: translate(-{pc(closest.date)}%,0)"
+            >
               <strong>{closest.number} y</strong>
-              <span>{formatDate(closest.date)}, {formatTime(closest.date)}</span>
+              <span>{formatDate(closest.date)}, {formatTime(closest.date)}</span
+              >
             </div>
           </Pancake.Point>
         {/if}
@@ -147,10 +168,16 @@
   </div>
 </div>
 <div class="controls">
-  <button on:click="{ changePoints }">New data</button>
+  <button on:click={changePoints}>New data</button>
   Smoothing:
   <input type="checkbox" bind:checked={smoothingOn} />
-  <input type="range" bind:value={smoothingAmount} min="0" max="0.5" step="0.01" />
+  <input
+    type="range"
+    bind:value={smoothingAmount}
+    min="0"
+    max="0.5"
+    step="0.01"
+  />
   {smoothingAmount}
 </div>
 
@@ -205,18 +232,18 @@
     text-align: center;
   }
 
-  .text {
+  /* .text {
     position: absolute;
     width: 15em;
     line-height: 1;
     color: #666;
     transform: translate(0, -50%);
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
-      0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
-      0 0 2px white, 0 0 2px white;
-  }
+    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
+      0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
+      0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
+  } */
 
-  .text p {
+  /* .text p {
     margin: 0;
     line-height: 1.2;
     color: #999;
@@ -225,7 +252,7 @@
   .text h2 {
     margin: 0;
     font-size: 1.4em;
-  }
+  } */
 
   path.avg {
     stroke: #2b2b42;
@@ -236,17 +263,17 @@
     fill: none;
   }
 
-  path.scatter {
+  /* path.scatter {
     stroke-width: 3px;
-  }
+  } */
 
-  path.trend {
+  /* path.trend {
     stroke: #ff3e00;
     stroke-linejoin: round;
     stroke-linecap: round;
     stroke-width: 2px;
     fill: none;
-  }
+  } */
 
   .focus {
     position: absolute;
@@ -266,8 +293,8 @@
     bottom: 1em;
     /* background-color: white; */
     line-height: 1;
-    text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white,
-      0 0 10px white, 0 0 10px white;
+    text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white,
+      0 0 10px white, 0 0 10px white, 0 0 10px white;
   }
 
   .tooltip strong {

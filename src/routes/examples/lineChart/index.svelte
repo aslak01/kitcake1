@@ -1,6 +1,6 @@
 <script>
   // Source: https://github.com/KristerV/pancake-ce/blob/master/site/examples/data/6/App.svelte
-  import * as Pancake from '@sveltejs/pancake';
+  import * as Pancake from '@sveltejs/pancake'
   const points = [
     { x: 0, y: 0 },
     { x: 1, y: 1 },
@@ -13,7 +13,7 @@
     { x: 8, y: 64 },
     { x: 9, y: 81 },
     { x: 10, y: 100 }
-  ];
+  ]
 </script>
 
 <div class="center">

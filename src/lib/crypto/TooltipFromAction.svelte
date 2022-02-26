@@ -1,7 +1,7 @@
 <script>
-  export let title;
-  export let x;
-  export let y;
+  export let title
+  export let x
+  export let y
 </script>
 
 <div

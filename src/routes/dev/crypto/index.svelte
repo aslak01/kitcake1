@@ -1,12 +1,12 @@
 <script>
-  import * as Pancake from '@sveltejs/pancake';
-  import * as yootils from 'yootils';
-  import { tooltip } from '$lib/crypto/tooltip';
-  import dayjs from 'dayjs';
-  import { Ema } from '$lib/crypto/ema';
-  import { genPolygon, filterUnwanted, formatBase } from '$lib/crypto/utils';
-  export let cryptoData;
-  let tradingPair = `ETH-USD`;
+  import * as Pancake from '@sveltejs/pancake'
+  import * as yootils from 'yootils'
+  import { tooltip } from '$lib/crypto/tooltip'
+  import dayjs from 'dayjs'
+  import { Ema } from '$lib/crypto/ema'
+  import { genPolygon, filterUnwanted, formatBase } from '$lib/crypto/utils'
+  export let cryptoData
+  let tradingPair = `ETH-USD`
   const candleGranularity = [
     { label: `1 Min`, value: 60 },
     { label: `5 Min`, value: 300 },
@@ -14,78 +14,81 @@
     { label: `1 Hour`, value: 3600 },
     { label: `6 Hours`, value: 21600 },
     { label: `1 Day`, value: 86400 }
-  ];
-  let w;
-  let ema12Enabled = false;
-  let ema26Enabled = false;
+  ]
+  let w
+  let ema12Enabled = false
+  let ema26Enabled = false
   //const emaList = [];
-  let tempGranularity = 900;
-  let granularity = 900;
-  let { data, pairs } = cryptoData;
+  let tempGranularity = 900
+  let granularity = 900
+  let { data, pairs } = cryptoData
 
   /* Fetches new data on:blur when user selects tradingPair || granularity */
   async function loadData() {
-    let res = await fetch(`api/coinbase-pro/${tradingPair}.json?granularity=${granularity}`);
-    let tempData = await res.json();
-    tempGranularity = granularity;
-    data = filterUnwanted(tempData.data);
+    let res = await fetch(
+      `api/coinbase-pro/${tradingPair}.json?granularity=${granularity}`
+    )
+    let tempData = await res.json()
+    tempGranularity = granularity
+    data = filterUnwanted(tempData.data)
   }
 
   const determineColor = (d, i) => {
     if (d.close > d.open) {
-      return '#22c55e';
+      return '#22c55e'
     } else if (d.open > d.close) {
-      return '#DF3604';
+      return '#DF3604'
     } else if (i == 0) {
-      return '#22c55e';
+      return '#22c55e'
     } else if (testData[i - 1].close > testData[i - 1].open) {
-      return '#22c55e';
+      return '#22c55e'
     } else if (testData[i - 1].open > testData[i - 1].close) {
-      return '#DF3604';
+      return '#DF3604'
     } else {
-      return determineColor(i - 1);
+      return determineColor(i - 1)
     }
-  };
+  }
 
   /* Reactive portion of code */
-  $: count = w <= 650 ? 40 : w <= 800 ? 60 : w <= 1000 ? 125 : w <= 1500 ? 150 : 175;
+  $: count =
+    w <= 650 ? 40 : w <= 800 ? 60 : w <= 1000 ? 125 : w <= 1500 ? 150 : 175
 
   $: ema12 = Ema(
     data.map((dat) => dat.close),
     12
-  ).slice(data.length - count, data.length - 1);
+  ).slice(data.length - count, data.length - 1)
 
   $: ema26 = Ema(
     data.map((dat) => dat.close),
     26
-  ).slice(data.length - count, data.length - 1);
+  ).slice(data.length - count, data.length - 1)
 
-  $: testData = data.slice(data.length - count, data.length - 1);
+  $: testData = data.slice(data.length - count, data.length - 1)
 
   $: testData.forEach((dat, i) => {
-    dat.ema12 = ema12[i];
-    dat.ema26 = ema26[i];
-  });
+    dat.ema12 = ema12[i]
+    dat.ema26 = ema26[i]
+  })
 
   $: minX = Math.min.apply(
     null,
     testData.map((item) => item.openTimeInMillis)
-  );
+  )
 
   $: maxX = Math.max.apply(
     null,
     testData.map((item) => item.openTimeInMillis)
-  );
+  )
 
   $: minY = Math.min.apply(
     null,
     testData.map((item) => item.low)
-  );
+  )
 
   $: maxY = Math.max.apply(
     null,
     testData.map((item) => item.high)
-  );
+  )
 </script>
 
 <div class="controlPanel">
@@ -122,7 +125,9 @@
 <div bind:clientWidth={w} class="chart">
   <Pancake.Chart x1={minX} x2={maxX} y1={minY} y2={maxY}>
     <Pancake.Grid horizontal count={5} let:value let:first>
-      <div class="grid-line horizontal"><span>{`$${yootils.commas(value)}`}</span></div>
+      <div class="grid-line horizontal">
+        <span>{`$${yootils.commas(value)}`}</span>
+      </div>
     </Pancake.Grid>
 
     <Pancake.Grid vertical count={10} let:value>

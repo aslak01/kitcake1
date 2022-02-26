@@ -1,39 +1,41 @@
 <script context="module">
-  const modules = import.meta.globEager('./*/index.svelte');
+  const modules = import.meta.globEager('./*/index.svelte')
   /**
    * @type {import('@sveltejs/kit').Load}
    */
   export async function load({ fetch }) {
-    const url = `api/coinbase-pro/ETH-USD.json?granularity=900`;
-    const res = await fetch(url);
-    const cryptoData = await res.json();
+    const url = `api/coinbase-pro/ETH-USD.json?granularity=900`
+    const res = await fetch(url)
+    const cryptoData = await res.json()
 
     if (res.ok) {
       return {
         props: {
           cryptoData
         }
-      };
+      }
     }
 
     return {
       status: res.status,
       error: new Error(`Could not load ${url}`)
-    };
+    }
   }
-  export const charts = Object.values(modules).map((mod) => ({ Chart: mod.default }));
+  export const charts = Object.values(modules).map((mod) => ({
+    Chart: mod.default
+  }))
 </script>
 
 <script>
-  export let cryptoData;
+  export let cryptoData
   function nextChart() {
-    number + 1 < charts.length ? (number += 1) : (number = 0);
+    number + 1 < charts.length ? (number += 1) : (number = 0)
   }
   function prevChart() {
-    number - 1 >= 0 ? (number -= 1) : (number = charts.length - 1);
+    number - 1 >= 0 ? (number -= 1) : (number = charts.length - 1)
   }
-  let number;
-  $: number = 0;
+  let number
+  $: number = 0
 </script>
 
 <svelte:head>

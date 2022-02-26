@@ -1,57 +1,63 @@
 <script>
-  import * as Pancake from '@sveltejs/pancake';
-  import tsv from './carbon.js';
+  import * as Pancake from '@sveltejs/pancake'
+  import tsv from './carbon.js'
 
   const data = tsv.split('\n').map((str) => {
-    let [date, avg, trend] = str.split('\t').map(parseFloat);
-    if (avg === -99.99) avg = null;
+    let [date, avg, trend] = str.split('\t').map(parseFloat)
+    if (avg === -99.99) avg = null
 
-    return { date, avg, trend };
-  });
+    return { date, avg, trend }
+  })
 
-  const points = data.filter((d) => d.avg);
+  const points = data.filter((d) => d.avg)
 
-  let minx = points[0].date;
-  let maxx = points[points.length - 1].date;
-  let miny = +Infinity;
-  let maxy = -Infinity;
-  let highest;
+  let minx = points[0].date
+  let maxx = points[points.length - 1].date
+  let miny = +Infinity
+  let maxy = -Infinity
+  let highest
 
   for (let i = 0; i < points.length; i += 1) {
-    const point = points[i];
+    const point = points[i]
 
     if (point.avg < miny) {
-      miny = point.avg;
+      miny = point.avg
     }
 
     if (point.avg > maxy) {
-      maxy = point.avg;
-      highest = point;
+      maxy = point.avg
+      highest = point
     }
   }
 
-  const months = 'Jan Feb Mar Apr May June July Aug Sept Oct Nov Dec'.split(' ');
+  const months = 'Jan Feb Mar Apr May June July Aug Sept Oct Nov Dec'.split(' ')
 
   const format = (date) => {
-    const year = ~~date;
-    const month = Math.floor((date % 1) * 12);
+    const year = ~~date
+    const month = Math.floor((date % 1) * 12)
 
-    return `${months[month]} ${year}`;
-  };
+    return `${months[month]} ${year}`
+  }
 
   const pc = (date) => {
-    return (100 * (date - minx)) / (maxx - minx);
-  };
+    return (100 * (date - minx)) / (maxx - minx)
+  }
 </script>
 
 <div class="center">
   <h1>CO<sub>2</sub> chart</h1>
-  <h3>From <a href="https://pancake-charts.surge.sh/">Rich Harris' examples page</a></h3>
+  <h3>
+    From <a href="https://pancake-charts.surge.sh/"
+      >Rich Harris' examples page</a
+    >
+  </h3>
 </div>
 <div class="chart">
   <Pancake.Chart x1={minx} x2={maxx} y1={miny} y2={maxy}>
     <Pancake.Grid horizontal count={5} let:value let:last>
-      <div class="grid-line horizontal"><span>{value} {last ? 'ppm' : ''}</span></div>
+      <div class="grid-line horizontal">
+        <span>{value} {last ? 'ppm' : ''}</span>
+      </div>
     </Pancake.Grid>
 
     <Pancake.Grid vertical count={5} let:value>
@@ -60,7 +66,12 @@
     </Pancake.Grid>
 
     <Pancake.Svg>
-      <Pancake.SvgScatterplot data={points} x={(d) => d.date} y={(d) => d.avg} let:d>
+      <Pancake.SvgScatterplot
+        data={points}
+        x={(d) => d.date}
+        y={(d) => d.avg}
+        let:d
+      >
         <path class="avg scatter" {d} />
       </Pancake.SvgScatterplot>
 
@@ -90,7 +101,11 @@
     <!-- note -->
     <Pancake.Point x={2015} y={330}>
       <div class="text" style="right: 0; text-align: right;">
-        <p><em>This chart will render correctly even if JavaScript is disabled.</em></p>
+        <p>
+          <em
+            >This chart will render correctly even if JavaScript is disabled.</em
+          >
+        </p>
       </div>
     </Pancake.Point>
 
@@ -104,11 +119,19 @@
       </div>
     </Pancake.Point>
 
-    <Pancake.Quadtree data={points} x={(d) => d.date} y={(d) => d.avg} let:closest>
+    <Pancake.Quadtree
+      data={points}
+      x={(d) => d.date}
+      y={(d) => d.avg}
+      let:closest
+    >
       {#if closest}
         <Pancake.Point x={closest.date} y={closest.avg} let:d>
           <div class="focus" />
-          <div class="tooltip" style="transform: translate(-{pc(closest.date)}%,0)">
+          <div
+            class="tooltip"
+            style="transform: translate(-{pc(closest.date)}%,0)"
+          >
             <strong>{closest.avg} ppm</strong>
             <span>{format(closest.date)}</span>
           </div>
@@ -124,7 +147,8 @@
     href="https://scrippsco2.ucsd.edu/data/atmospheric_co2/primary_mlo_co2_record.html"
     >Scripps Institution of Oceanography</a
   >. Based on
-  <a href="https://www.bloomberg.com/graphics/climate-change-data-green/carbon-clock.html"
+  <a
+    href="https://www.bloomberg.com/graphics/climate-change-data-green/carbon-clock.html"
     >Carbon Clock by Bloomberg</a
   >.
 </p>
@@ -181,9 +205,9 @@
     line-height: 1;
     color: #666;
     transform: translate(0, -50%);
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
-      0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
-      0 0 2px white, 0 0 2px white;
+    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
+      0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
+      0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
   }
 
   .text p {
@@ -236,8 +260,8 @@
     bottom: 1em;
     /* background-color: white; */
     line-height: 1;
-    text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white,
-      0 0 10px white, 0 0 10px white;
+    text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white,
+      0 0 10px white, 0 0 10px white, 0 0 10px white;
   }
 
   .tooltip strong {
